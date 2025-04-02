@@ -1,22 +1,49 @@
 package br.fatec.easycoast.entities;
 
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
+
 @Entity
+@Table(name = "TBL_CHECKOUT")
 public class Checkout {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
-    @Column(nullable = false)
-    private LocalDate dataAbertura;
+    private LocalDateTime dateOpening;
+    private Double valueInitial;
+    private String status; // "ABERTO" ou "FECHADO"
 
-    @Column(nullable = false)
-    private LocalTime horaAbertura;
+    public Integer getId() {
+        return id;
+    }
 
-    @Column(nullable = false)
-    private BigDecimal valorInicial;
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-    @Column(nullable = false)
-    private String status;
+    public LocalDateTime getDateOpening() {
+        return dateOpening;
+    }
 
-    // Getters and Setters
+    public void setDateOpening(LocalDateTime dateOpening) {
+        this.dateOpening = dateOpening;
+    }
+
+    public Double getValueInitial() {
+        return valueInitial;
+    }
+
+    public void setValueInitial(Double valueInitial) {
+        this.valueInitial = valueInitial;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }

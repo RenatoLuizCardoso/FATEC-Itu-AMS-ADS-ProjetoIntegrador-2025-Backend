@@ -1,25 +1,61 @@
 package br.fatec.easycoast.entities;
 
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
+
 @Entity
+@Table(name = "TBL_TICKET")
 public class Ticket {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "checkout_id", nullable = false)
+    @JoinColumn(name = "checkout_id")
     private Checkout checkout;
 
-    @Column(nullable = false)
-    private String status;
+    private LocalDateTime dateCreate;
+    private String client;
+    private Double totalValue;
 
-    @Column(nullable = false)
-    private LocalDateTime dataCriacao;
+    public Integer getId() {
+        return id;
+    }
 
-    private String cliente;
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-    @Column(nullable = false)
-    private BigDecimal valorTotal;
+    public Checkout getCheckout() {
+        return checkout;
+    }
 
-    // Getters and Setters
+    public void setCheckout(Checkout checkout) {
+        this.checkout = checkout;
+    }
+
+    public LocalDateTime getDateCreate() {
+        return dateCreate;
+    }
+
+    public void setDateCreate(LocalDateTime dateCreate) {
+        this.dateCreate = dateCreate;
+    }
+
+    public String getClient() {
+        return client;
+    }
+
+    public void setClient(String client) {
+        this.client = client;
+    }
+
+    public Double getTotalValue() {
+        return totalValue;
+    }
+
+    public void setTotalValue(Double totalValue) {
+        this.totalValue = totalValue;
+    }
 }

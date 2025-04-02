@@ -1,11 +1,14 @@
 package br.fatec.easycoast.services;
 
+import br.fatec.easycoast.dtos.PaymentRequest;
+import br.fatec.easycoast.dtos.PaymentResponse;
+import br.fatec.easycoast.entities.Payment;
+import br.fatec.easycoast.repositories.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PaymentService {
@@ -13,31 +16,20 @@ public class PaymentService {
     @Autowired
     private PaymentRepository paymentRepository;
 
-    @Autowired
-    private PaymentMapper paymentMapper;
+    public PaymentResponse processPayment(PaymentRequest request) {
+        Payment payment = new Payment();
+        payment.setTicketId(request.getTicketId());
+        payment.setPaymentForm(request.getPaymentForm());
+        payment.setValuePaid(request.getValuePaid());
+        payment.setPaymentStatus("COMPLETED");
 
-    // Criar pagamento
-    @Transactional
-    public PaymentResponseDTO createPayment(PaymentRequestDTO paymentRequestDTO) {
-        Payment payment = paymentMapper.toEntity(paymentRequestDTO);
-        Payment savedPayment = paymentRepository.save(payment);
-        return paymentMapper.toResponseDTO(savedPayment);
+        Payment saved = paymentRepository.save(payment);
+        return new PaymentResponse(saved.getId(), saved.getTicketId(), saved.getPaymentForm(), saved.getValuePaid(), saved.getPaymentStatus());
     }
 
-    // Obter pagamento por ID
-    public PaymentResponseDTO getPaymentById(Long id) {
-        Optional<Payment> payment = paymentRepository.findById(id);
-        if (payment.isPresent()) {
-            return paymentMapper.toResponseDTO(payment.get());
-        } else {
-            // Retornar algum erro ou resposta nula
-            return null;
-        }
-    }
-
-    // Obter todos os pagamentos
-    public List<PaymentResponseDTO> getAllPayments() {
-        List<Payment> payments = paymentRepository.findAll();
-        return paymentMapper.toResponseDTOList(payments);
+    public List<PaymentResponse> getPaymentsByTicket(Integer ticketId) {
+        return paymentRepository.findByTicketId(ticketId).stream()
+                .map(payment -> new PaymentResponse(payment.getId(), payment.getTicketId(), payment.getPaymentForm(), payment.getValuePaid(), payment.getPaymentStatus()))
+                .collect(Collectors.toList());
     }
 }
