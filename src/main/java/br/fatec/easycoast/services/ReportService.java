@@ -16,19 +16,21 @@ public class ReportService {
     private ReportRepository reportRepository;
 
     public ReportResponse generateReport(ReportRequest request) {
+        // Criando um novo relatório
         Report report = new Report();
-        report.setReportType(request.getReportType());
+        report.setReportType(request.reportType());
         report.setReportGenDate(LocalDateTime.now());
-        report.setReportData(request.getReportData());
+        report.setReportData(request.reportData());
 
+        // Salvando o relatório no banco de dados
         reportRepository.save(report);
 
-        ReportResponse response = new ReportResponse();
-        response.setId(report.getId());
-        response.setReportType(report.getReportType());
-        response.setReportGenDate(report.getReportGenDate());
-        response.setReportData(report.getReportData());
-
-        return response;
+        // Retornando a resposta com as informações do relatório gerado
+        return new ReportResponse(
+                report.getId(),
+                report.getReportType(),
+                report.getReportGenDate(),
+                report.getReportData()
+        );
     }
 }

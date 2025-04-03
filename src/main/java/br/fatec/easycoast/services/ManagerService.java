@@ -7,27 +7,22 @@ import br.fatec.easycoast.repositories.ManagerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 public class ManagerService {
 
     @Autowired
     private ManagerRepository managerRepository;
-
+    
     public ManagerResponse createManager(ManagerRequest request) {
-        Manager manager = new Manager();
-        manager.setName(request.getName());
-        manager.setLogin(request.getLogin());
-        manager.setPassword(request.getPassword()); // Senha já será criptografada
-
-        managerRepository.save(manager);
         
-        ManagerResponse response = new ManagerResponse();
-        response.setId(manager.getId());
-        response.setName(manager.getName());
-        response.setLogin(manager.getLogin());
+        Manager manager = new Manager();
+        manager.setName(request.name()); 
+        manager.setLogin(request.login()); 
+        manager.setPassword(request.password());
+        
+        managerRepository.save(manager);
 
-        return response;
+        return new ManagerResponse(manager.getId(), manager.getName(), manager.getLogin());
     }
 }
+

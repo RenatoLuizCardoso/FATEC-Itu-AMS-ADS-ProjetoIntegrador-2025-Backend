@@ -16,12 +16,14 @@ public class CheckoutService {
     private CheckoutRepository checkoutRepository;
 
     public CheckoutResponse createCheckout(CheckoutRequest request) {
+        
         Checkout checkout = new Checkout();
-        checkout.setDateOpening(request.getDateOpening());
-        checkout.setValueInitial(request.getValueInitial());
-        checkout.setStatus(request.getStatus());
-
+        checkout.setDateOpening(request.dateOpening()); 
+        checkout.setValueInitial(request.valueInitial()); 
+        checkout.setStatus(request.status());
+        
         Checkout saved = checkoutRepository.save(checkout);
+    
         return new CheckoutResponse(saved.getId(), saved.getDateOpening(), saved.getValueInitial(), saved.getStatus());
     }
 
@@ -30,3 +32,4 @@ public class CheckoutService {
                 .map(checkout -> new CheckoutResponse(checkout.getId(), checkout.getDateOpening(), checkout.getValueInitial(), checkout.getStatus()));
     }
 }
+

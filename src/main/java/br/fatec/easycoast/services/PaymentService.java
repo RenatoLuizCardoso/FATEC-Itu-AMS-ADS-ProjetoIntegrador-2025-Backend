@@ -17,13 +17,15 @@ public class PaymentService {
     private PaymentRepository paymentRepository;
 
     public PaymentResponse processPayment(PaymentRequest request) {
+        
         Payment payment = new Payment();
-        payment.setTicketId(request.getTicketId());
-        payment.setPaymentForm(request.getPaymentForm());
-        payment.setValuePaid(request.getValuePaid());
-        payment.setPaymentStatus("COMPLETED");
+        payment.setTicketId(request.ticketId());  
+        payment.setPaymentForm(request.paymentForm());  
+        payment.setValuePaid(request.valuePaid());  
+        payment.setPaymentStatus("Completed");
 
         Payment saved = paymentRepository.save(payment);
+
         return new PaymentResponse(saved.getId(), saved.getTicketId(), saved.getPaymentForm(), saved.getValuePaid(), saved.getPaymentStatus());
     }
 
@@ -33,3 +35,4 @@ public class PaymentService {
                 .collect(Collectors.toList());
     }
 }
+
