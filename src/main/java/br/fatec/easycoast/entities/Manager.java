@@ -20,7 +20,6 @@ public class Manager {
         this.password = new BCryptPasswordEncoder().encode(rawPassword);
     }
 
-    // Getters e Setters
     public Integer getId() {
         return id;
     }
