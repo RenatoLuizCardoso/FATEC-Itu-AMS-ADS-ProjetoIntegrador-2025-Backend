@@ -1,11 +1,11 @@
 package br.fatec.easycoast.entities;
 
+import br.fatec.easycoast.dtos.user.UserProfile;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import br.fatec.easycoast.dtos.UserProfile;
 
 @Entity
 @Table(name = "TBL_USERS")

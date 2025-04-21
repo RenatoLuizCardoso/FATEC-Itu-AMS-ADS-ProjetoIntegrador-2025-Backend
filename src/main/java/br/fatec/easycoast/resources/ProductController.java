@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import br.fatec.easycoast.dtos.ProductRequest;
-import br.fatec.easycoast.dtos.ProductResponse;
+import br.fatec.easycoast.dtos.product.ProductRequest;
+import br.fatec.easycoast.dtos.product.ProductResponse;
 import br.fatec.easycoast.services.ProductService;
 import jakarta.validation.Valid;
 

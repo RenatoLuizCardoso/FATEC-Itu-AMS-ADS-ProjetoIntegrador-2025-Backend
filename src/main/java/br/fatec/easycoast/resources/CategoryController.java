@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import br.fatec.easycoast.dtos.CategoryRequest;
-import br.fatec.easycoast.dtos.CategoryResponse;
+import br.fatec.easycoast.dtos.category.CategoryRequest;
+import br.fatec.easycoast.dtos.category.CategoryResponse;
 import br.fatec.easycoast.services.CategoryService;
 import jakarta.validation.Valid;
 
