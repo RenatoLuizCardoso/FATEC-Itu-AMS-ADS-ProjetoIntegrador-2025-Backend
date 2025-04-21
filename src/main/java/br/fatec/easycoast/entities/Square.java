@@ -2,7 +2,8 @@ package br.fatec.easycoast.entities;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import br.fatec.easycoast.dtos.ItemsOnly;
+
+import br.fatec.easycoast.dtos.item.ItemsOnly;
 import br.fatec.easycoast.mappers.ItemMapper;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

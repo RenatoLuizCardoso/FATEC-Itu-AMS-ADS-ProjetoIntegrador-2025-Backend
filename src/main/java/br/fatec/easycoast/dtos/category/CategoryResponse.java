@@ -1,4 +1,4 @@
-package br.fatec.easycoast.dtos;
+package br.fatec.easycoast.dtos.category;
 
 public record CategoryResponse(
 

@@ -1,4 +1,4 @@
-package br.fatec.easycoast.dtos;
+package br.fatec.easycoast.dtos.product;
 
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;

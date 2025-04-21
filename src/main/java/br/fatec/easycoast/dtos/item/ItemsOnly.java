@@ -1,4 +1,4 @@
-package br.fatec.easycoast.dtos;
+package br.fatec.easycoast.dtos.item;
 
 public record ItemsOnly(
     Integer id, 
