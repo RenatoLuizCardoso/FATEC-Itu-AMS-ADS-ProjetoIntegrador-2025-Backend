@@ -2,7 +2,7 @@ package br.fatec.easycoast.entities;
 
 import jakarta.persistence.*;
 import java.sql.Timestamp;
-import java.util.List;
+//import java.util.List;
 
 @Entity
 @Table(name = "orders")
@@ -16,17 +16,17 @@ public class Order {
     private Timestamp closingTime;
     private Double total;
 
-    @ManyToOne
-    private Card card;
+    //@ManyToOne
+    //private Card card;
 
     @ManyToOne
     private Table table;
 
-    @ManyToOne
-    private Employee employee;
+    //@ManyToOne
+    //private Employee employee;
 
-    @OneToMany(mappedBy = "order")
-    private List<OrderItem> orderItems;
+    //@OneToMany(mappedBy = "order")
+    //private List<OrderItem> orderItems;
 
     // Getters and Setters
     public Integer getId() {
@@ -61,13 +61,13 @@ public class Order {
         this.total = total;
     }
 
-    public Card getCard() {
-        return card;
-    }
+    //public Card getCard() {
+        //return card;
+    //}
 
-    public void setCard(Card card) {
+    /*public void setCard(Card card) {
         this.card = card;
-    }
+    }*/
 
     public Table getTable() {
         return table;
@@ -77,7 +77,7 @@ public class Order {
         this.table = table;
     }
 
-    public Employee getEmployee() {
+    /*public Employee getEmployee() {
         return employee;
     }
 
@@ -91,5 +91,5 @@ public class Order {
 
     public void setOrderItems(List<OrderItem> orderItems) {
         this.orderItems = orderItems;
-    }
+    }*/
 }

@@ -35,10 +35,10 @@ public class OrderService {
         order.setOpeningTime(orderDetails.getOpeningTime());
         order.setClosingTime(orderDetails.getClosingTime());
         order.setTotal(orderDetails.getTotal());
-        order.setCard(orderDetails.getCard());
+        //order.setCard(orderDetails.getCard());
         order.setTable(orderDetails.getTable());
-        order.setEmployee(orderDetails.getEmployee());
-        order.setOrderItems(orderDetails.getOrderItems());
+        //order.setEmployee(orderDetails.getEmployee());
+        //order.setOrderItems(orderDetails.getOrderItems());
 
         return orderRepository.save(order);
     }

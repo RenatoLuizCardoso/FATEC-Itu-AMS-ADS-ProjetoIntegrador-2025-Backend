@@ -8,10 +8,10 @@ public class OrderResponse {
     private Timestamp openingTime;
     private Timestamp closingTime;
     private Double total;
-    private Card card;
-    private Table table;
-    private Employee employee;
-    private List<OrderItem> orderItems;
+    //private Card card;
+    //private Table table;
+    //private Employee employee;
+    //private List<OrderItem> orderItems;
 
     // Getters and Setters
     public Integer getId() {
