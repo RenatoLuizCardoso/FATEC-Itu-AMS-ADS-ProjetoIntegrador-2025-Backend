@@ -1,5 +1,8 @@
 package br.fatec.easycoast.dtos.order;
 
+import java.sql.Timestamp;
+import java.util.List;
+
 public class OrderRequest {
     private Timestamp openingTime;
     private Timestamp closingTime;
