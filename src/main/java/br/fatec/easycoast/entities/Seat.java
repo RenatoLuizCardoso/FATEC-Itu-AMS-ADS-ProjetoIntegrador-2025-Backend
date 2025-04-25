@@ -1,7 +1,12 @@
 package br.fatec.easycoast.entities;
 
-import br.fatec.easycoast.dtos.table.TableStatus;
-import jakarta.persistence.*;
+import br.fatec.easycoast.dtos.seat.SeatStatus;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
@@ -13,7 +18,7 @@ public class Seat {
     private Integer id;
 
     @Enumerated(EnumType.STRING)
-    private TableStatus status;
+    private SeatStatus status;
 
     // Getters and Setters
     public Integer getId() {
@@ -24,11 +29,11 @@ public class Seat {
         this.id = id;
     }
 
-    public TableStatus getStatus() {
+    public SeatStatus getStatus() {
         return status;
     }
 
-    public void setStatus(TableStatus status) {
+    public void setStatus(SeatStatus status) {
         this.status = status;
     }
 }

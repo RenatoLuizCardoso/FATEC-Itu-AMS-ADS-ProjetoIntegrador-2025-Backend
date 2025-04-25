@@ -1,8 +1,8 @@
 package br.fatec.easycoast.dtos.seat;
 
-public class TableResponse {
+public class SeatResponse {
     private Integer id;
-    private TableStatus status;
+    private SeatStatus status;
 
     // Getters and Setters
     public Integer getId() {
@@ -13,11 +13,11 @@ public class TableResponse {
         this.id = id;
     }
 
-    public TableStatus getStatus() {
+    public SeatStatus getStatus() {
         return status;
     }
 
-    public void setStatus(TableStatus status) {
+    public void setStatus(SeatStatus status) {
         this.status = status;
     }
 }

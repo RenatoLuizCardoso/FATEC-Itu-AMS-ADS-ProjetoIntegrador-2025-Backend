@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import br.fatec.easycoast.entities.Seat;
 
 @Repository
-public interface TableRepository extends JpaRepository<Seat, Integer> {
+public interface SeatRepository extends JpaRepository<Seat, Integer> {
    
 }
