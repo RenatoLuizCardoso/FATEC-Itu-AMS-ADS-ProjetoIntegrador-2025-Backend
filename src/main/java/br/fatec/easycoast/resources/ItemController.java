@@ -1,3 +1,4 @@
+
 package br.fatec.easycoast.resources;
 
 import java.net.URI;
@@ -25,32 +26,32 @@ import br.fatec.easycoast.services.ItemService;
 public class ItemController {
     @Autowired
     ItemService itemService;
-  
+
     @GetMapping
-    public ResponseEntity<List<ItemResponse>> getItems(){
+    public ResponseEntity<List<ItemResponse>> getItems() {
         return ResponseEntity.ok(itemService.getItems());
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<ItemResponse> getItem(@PathVariable int id){
+    public ResponseEntity<ItemResponse> getItem(@PathVariable int id) {
         return ResponseEntity.ok(itemService.getItem(id));
     }
 
     @PostMapping
-    public ResponseEntity<ItemResponse> saveItem(@RequestBody ItemRequest request){
+    public ResponseEntity<ItemResponse> saveItem(@RequestBody ItemRequest request) {
         ItemResponse item = itemService.saveItem(request);
 
         URI location = ServletUriComponentsBuilder
-                       .fromCurrentRequest()
-                       .path("/{id}")
-                       .buildAndExpand(item.id())
-                       .toUri();
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(item.id())
+                .toUri();
 
         return ResponseEntity.created(location).body(item);
     }
-  
+
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateItem(@PathVariable int id, @RequestBody ItemRequest request){
+    public ResponseEntity<Void> updateItem(@PathVariable int id, @RequestBody ItemRequest request) {
         itemService.updateItem(id, request);
         return ResponseEntity.ok().build();
     }
