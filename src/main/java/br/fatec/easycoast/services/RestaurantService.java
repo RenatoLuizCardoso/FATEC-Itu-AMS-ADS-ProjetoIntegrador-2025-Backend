@@ -8,7 +8,6 @@ import br.fatec.easycoast.dtos.restaurant.RestaurantResponse;
 import br.fatec.easycoast.entities.Restaurant;
 import br.fatec.easycoast.mappers.RestaurantMapper;
 import br.fatec.easycoast.repositories.RestaurantRepository;
-import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 
 @Service
@@ -25,7 +24,7 @@ public class RestaurantService {
     public RestaurantResponse saveRestaurant(RestaurantRequest request) {
         // Saving the restaurant withou an id, because the id will be added auto
         if (getRestaurant() != null) {
-            throw new EntityExistsException("Restaurant is created already!");
+            return getRestaurant();
         } else {
             Restaurant restaurant = restaurantRepository.save(RestaurantMapper.toEntity(request));
             return RestaurantMapper.toDto(restaurant);
