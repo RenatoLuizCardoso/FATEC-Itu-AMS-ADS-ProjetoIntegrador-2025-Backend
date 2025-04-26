@@ -11,8 +11,7 @@ public record AddonCategoryRequest(
 
                 @NotBlank(message = "Nome da categoria de adicionais não pode ser vazio. ") String name,
                 AddonType type,
-
-                // Product product,
+                Product product,
                 List<Addon> addons
 
 ) {

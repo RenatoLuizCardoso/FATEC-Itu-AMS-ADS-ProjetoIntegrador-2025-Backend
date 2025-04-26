@@ -7,9 +7,10 @@ import br.fatec.easycoast.entities.Product;
 import br.fatec.easycoast.entities.resources.AddonType;
 
 public record AddonCategoryResponse(
-        Integer id,
-        String name,
-        AddonType type,
-        Product product,
-        List<Addon> addons) {
+                Integer id,
+                String name,
+                AddonType type,
+                Product product,
+                List<Addon> addons) {
+
 }

@@ -31,14 +31,16 @@ public class AddonCategory {
     @Enumerated(EnumType.ORDINAL)
     private AddonType type;
 
-    // @ManyToOne
-    // @JoinColumn(name = "PRODUCT_ID")
-    // private Product product;
+    @ManyToOne
+    @JoinColumn(name = "PRODUCT_ID")
+    private Product product;
 
     @OneToMany
     @JoinColumn(name = "ADDON_ID")
-
     private List<Addon> addons;
+
+    public AddonCategory() {
+    }
 
     public Integer getId() {
         return id;
@@ -64,13 +66,13 @@ public class AddonCategory {
         this.type = type;
     }
 
-    // public Product getProduct() {
-    // return product;
-    // }
+    public Product getProduct() {
+        return product;
+    }
 
-    // public void setProduct(Product product) {
-    // this.product = product;
-    // }
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 
     public List<Addon> getAddons() {
         return addons;
