@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,10 +35,15 @@ public class RestaurantController {
 
         URI location = ServletUriComponentsBuilder
                        .fromCurrentRequest()
-                       .path("/{id}")
-                       .buildAndExpand(restaurant.id())
+                       .build()
                        .toUri();
 
         return ResponseEntity.created(location).body(restaurant);
+    }
+
+    @PutMapping
+    public ResponseEntity<Void> updateRestaurant(@RequestBody RestaurantRequest request){
+        restaurantService.updateRestaurant(request);
+        return ResponseEntity.ok().build();
     }
 }

@@ -18,26 +18,29 @@ public class RestaurantService {
     public RestaurantResponse getRestaurant() { // There will be only one restaurant in the DB
         // After catching the restaurant, turn it to a DTO
         return RestaurantMapper.toDto(restaurantRepository.findById(1) // find by 1, because there is only one
-                .orElseThrow(() -> new EntityNotFoundException())); // Needed because the function need
+                .orElseThrow(() -> new EntityNotFoundException("The Restaurant hasn't been created yet!"))); // Needed because the function need
     }
 
     public RestaurantResponse saveRestaurant(RestaurantRequest request) {
-        // Saving the restaurant withou an id, because the id will be added auto
-        if (getRestaurant() != null) {
+        try {
             return getRestaurant();
-        } else {
+        } catch (EntityNotFoundException e) {
             Restaurant restaurant = restaurantRepository.save(RestaurantMapper.toEntity(request));
             return RestaurantMapper.toDto(restaurant);
         }
     }
 
-    public void updateRestaurant(int id, RestaurantRequest request) {
-        Restaurant restaurant = restaurantRepository.getReferenceById(id);
+    public void updateRestaurant(RestaurantRequest request) {
+        try {
+            Restaurant restaurant = restaurantRepository.getReferenceById(1);
 
-        restaurant.setName(request.name());
-        restaurant.setLocation(request.location());
-        restaurant.setWhoAreWe(request.whoAreWe());
+            restaurant.setName(request.name());
+            restaurant.setLocation(request.location());
+            restaurant.setWhoAreWe(request.whoAreWe());
 
-        restaurantRepository.save(restaurant);
+            restaurantRepository.save(restaurant);
+        } catch (EntityNotFoundException e) {
+            throw new EntityNotFoundException("The Restaurant hasn't been created yet!");
+        }
     }
 }
