@@ -14,7 +14,12 @@ import jakarta.persistence.Table;
 
 import java.util.List;
 
+import br.fatec.easycoast.dtos.ItemResponse;
+import br.fatec.easycoast.dtos.Addon.AddonFiltered;
+import br.fatec.easycoast.dtos.AddonCategory.AddonCategoryFiltered;
+import br.fatec.easycoast.dtos.Products.ProductFiltered;
 import br.fatec.easycoast.entities.resources.AddonType;
+import br.fatec.easycoast.mappers.AddonMapper;
 
 @Entity
 @Table(name = "TBL_ADDONCATEGORY")
@@ -42,6 +47,20 @@ public class AddonCategory {
     public AddonCategory() {
     }
 
+    public AddonCategory(AddonCategoryFiltered addonCategoryFiltered) {
+        this.id = addonCategoryFiltered.id();
+        this.name = addonCategoryFiltered.name();
+        this.type = addonCategoryFiltered.type();
+        this.addons = addonCategoryFiltered.addons();
+    }
+
+    public AddonCategory(Integer id, String name, AddonType type, List<Addon> addons) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+        this.addons = addons;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -66,8 +85,10 @@ public class AddonCategory {
         this.type = type;
     }
 
-    public Product getProduct() {
-        return product;
+    public ProductFiltered getProduct() {
+
+        return new ProductFiltered(product.getId(), product.getName(), product.getDescription(), product.getPrice(),
+                product.getDiscount(), product.getAvailability(), product.getCategory(), product.getImageurl());
     }
 
     public void setProduct(Product product) {
@@ -76,6 +97,14 @@ public class AddonCategory {
 
     public List<Addon> getAddons() {
         return addons;
+    }
+
+    public List<AddonFiltered> getAddonFiltered() {
+        List<AddonFiltered> addonFiltered = addons.stream()
+                .map(a -> a.getAddonFiltered())
+                .toList();
+        return addonFiltered;
+
     }
 
     public void setAddons(List<Addon> addons) {

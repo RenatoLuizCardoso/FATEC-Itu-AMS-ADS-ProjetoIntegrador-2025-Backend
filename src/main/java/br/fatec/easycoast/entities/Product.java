@@ -2,13 +2,11 @@ package br.fatec.easycoast.entities;
 
 import java.util.List;
 
-// import java.util.List;
-
+import br.fatec.easycoast.dtos.AddonCategory.AddonCategoryFiltered;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -31,6 +29,17 @@ public class Product {
   private List<AddonCategory> addonsCategories;
 
   public Product() {
+  }
+
+  public Product(Integer id, String name, Float price, Float discount, Boolean availability, String category,
+      String imageurl) {
+    this.id = id;
+    this.name = name;
+    this.price = price;
+    this.discount = discount;
+    this.availability = availability;
+    this.category = category;
+    this.imageurl = imageurl;
   }
 
   public Integer getId() {
@@ -97,8 +106,14 @@ public class Product {
     this.imageurl = imageurl;
   }
 
-  public List<AddonCategory> getAddonsCategories() {
-    return addonsCategories;
+  // Coloquei o método GET que filtra ao invés de resgatar a classe AddonCategory
+  // original, para tirar o Product, porque é redundante.
+  //
+  public List<AddonCategoryFiltered> getAddonsCategories() {
+    List<AddonCategoryFiltered> addonsCategories2 = addonsCategories.stream()
+        .map(a -> new AddonCategoryFiltered(a.getId(), a.getName(), a.getType(), a.getAddons()))
+        .toList();
+    return addonsCategories2;
   }
 
   public void setAddonsCategories(List<AddonCategory> addonsCategories) {

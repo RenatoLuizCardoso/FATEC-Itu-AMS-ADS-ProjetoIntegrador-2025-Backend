@@ -13,13 +13,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import br.fatec.easycoast.dtos.AddonRequest;
-import br.fatec.easycoast.dtos.AddonResponse;
+import br.fatec.easycoast.dtos.Addon.AddonRequest;
+import br.fatec.easycoast.dtos.Addon.AddonResponse;
 import br.fatec.easycoast.services.AddonService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-
 
 @RestController
 @CrossOrigin
@@ -30,25 +28,25 @@ public class AddonController {
     private AddonService addonService;
 
     @GetMapping
-    public ResponseEntity <List<AddonResponse>> getAddons() {
+    public ResponseEntity<List<AddonResponse>> getAddons() {
         return ResponseEntity.ok(addonService.getAddons());
     }
 
     @GetMapping("{id}")
-    public ResponseEntity <AddonResponse> getAddonById(@PathVariable Integer id) {
+    public ResponseEntity<AddonResponse> getAddonById(@PathVariable Integer id) {
         return ResponseEntity.ok(addonService.getAddonById(id));
     }
 
     @PostMapping
-    public ResponseEntity <AddonResponse> save(@Valid @RequestBody AddonRequest request) {
-        AddonResponse newAddon = addonService.save(request); 
+    public ResponseEntity<AddonResponse> save(@Valid @RequestBody AddonRequest request) {
+        AddonResponse newAddon = addonService.save(request);
         URI location = ServletUriComponentsBuilder
-                            .fromCurrentRequest()
-                            .path("/{id}")
-                            .buildAndExpand(newAddon.id())
-                            .toUri(); 
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(newAddon.id())
+                .toUri();
 
-        return ResponseEntity.created(location).body(newAddon); 
+        return ResponseEntity.created(location).body(newAddon);
     }
-    
+
 }

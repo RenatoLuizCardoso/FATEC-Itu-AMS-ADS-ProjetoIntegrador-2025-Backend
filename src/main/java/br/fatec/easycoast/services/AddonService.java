@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.fatec.easycoast.dtos.AddonRequest;
-import br.fatec.easycoast.dtos.AddonResponse;
+import br.fatec.easycoast.dtos.Addon.AddonRequest;
+import br.fatec.easycoast.dtos.Addon.AddonResponse;
 import br.fatec.easycoast.entities.Addon;
 import br.fatec.easycoast.mappers.AddonMapper;
 import br.fatec.easycoast.repositories.AddonRepository;
