@@ -2,15 +2,14 @@ package br.fatec.easycoast.dtos.AddonCategory;
 
 import java.util.List;
 
-import br.fatec.easycoast.dtos.Products.ProductFiltered;
+import br.fatec.easycoast.dtos.Products.productFiltered;
 import br.fatec.easycoast.entities.Addon;
-import br.fatec.easycoast.entities.resources.AddonType;
 
-public record AddonCategoryProductFiltered(
-        Integer id,
-        String name,
-        AddonType type,
-        ProductFiltered product,
-        List<Addon> addons) {
+public record addonCategoryProductFiltered(
+                Integer id,
+                String name,
+                addonType type,
+                productFiltered product,
+                List<Addon> addons) {
 
 }

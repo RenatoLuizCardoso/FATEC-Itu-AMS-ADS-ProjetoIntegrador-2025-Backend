@@ -16,9 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import br.fatec.easycoast.dtos.Products.ProductAddonCategoryFiltered;
-import br.fatec.easycoast.dtos.Products.ProductRequest;
-import br.fatec.easycoast.dtos.Products.ProductResponse;
+import br.fatec.easycoast.dtos.Products.productAddonCategoryFiltered;
+import br.fatec.easycoast.dtos.Products.productRequest;
+import br.fatec.easycoast.dtos.Products.productResponse;
 import br.fatec.easycoast.services.ProductService;
 import jakarta.validation.Valid;
 
@@ -31,18 +31,18 @@ public class ProductController {
   private ProductService productService;
 
   @GetMapping("{id}")
-  public ResponseEntity<ProductAddonCategoryFiltered> getProductById(@PathVariable int id) {
+  public ResponseEntity<productAddonCategoryFiltered> getProductById(@PathVariable int id) {
     return ResponseEntity.ok(productService.getProductById(id));
   }
 
   @GetMapping
-  public ResponseEntity<List<ProductAddonCategoryFiltered>> getProducts() {
+  public ResponseEntity<List<productAddonCategoryFiltered>> getProducts() {
     return ResponseEntity.ok(productService.getProducts());
   }
 
   @PostMapping
-  public ResponseEntity<ProductResponse> postProduct(@Valid @RequestBody ProductRequest request) {
-    ProductResponse product = productService.postProduct(request);
+  public ResponseEntity<productResponse> postProduct(@Valid @RequestBody productRequest request) {
+    productResponse product = productService.postProduct(request);
     URI location = ServletUriComponentsBuilder
         .fromCurrentRequest()
         .path("/{id}")
@@ -53,7 +53,7 @@ public class ProductController {
   }
 
   @PutMapping("{id}")
-  public ResponseEntity<ProductResponse> putProduct(@Valid @PathVariable int id, @RequestBody ProductRequest request) {
+  public ResponseEntity<productResponse> putProduct(@Valid @PathVariable int id, @RequestBody productRequest request) {
     productService.putProduct(id, request);
     return ResponseEntity.ok().build();
   }

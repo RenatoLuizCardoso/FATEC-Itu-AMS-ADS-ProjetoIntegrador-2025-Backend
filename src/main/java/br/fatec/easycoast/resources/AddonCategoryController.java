@@ -15,35 +15,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import br.fatec.easycoast.dtos.AddonCategory.AddonCategoryFiltered;
-import br.fatec.easycoast.dtos.AddonCategory.AddonCategoryRequest;
-import br.fatec.easycoast.dtos.AddonCategory.AddonCategoryResponse;
+import br.fatec.easycoast.dtos.AddonCategory.addonCategoryFiltered;
+import br.fatec.easycoast.dtos.AddonCategory.addonCategoryRequest;
+import br.fatec.easycoast.dtos.AddonCategory.addonCategoryResponse;
 import br.fatec.easycoast.services.AddonCategoryService;
 import jakarta.validation.Valid;
 
 @RestController
 @CrossOrigin
-@RequestMapping("addonscategories")
+@RequestMapping("addoncategories")
 public class AddonCategoryController {
 
     @Autowired
     private AddonCategoryService addonCategoryService;
 
     @GetMapping
-    public ResponseEntity<List<AddonCategoryFiltered>> getAddonCategories() {
+    public ResponseEntity<List<addonCategoryFiltered>> getAddonCategories() {
         return ResponseEntity.ok(addonCategoryService.getAddonCategories());
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<AddonCategoryFiltered> getAddonCategory(@PathVariable Integer id) {
+    public ResponseEntity<addonCategoryFiltered> getAddonCategory(@PathVariable Integer id) {
         return ResponseEntity.ok(addonCategoryService.getAddonCategory(id));
     }
 
     @PostMapping
-    public ResponseEntity<AddonCategoryResponse> saveAddonCategory(@Valid @RequestBody AddonCategoryRequest request) {
+    public ResponseEntity<addonCategoryResponse> saveAddonCategory(@Valid @RequestBody addonCategoryRequest request) {
 
-        AddonCategoryResponse addonCategoryResponse = addonCategoryService.saveAddonCategory(request);
-        System.out.println("addon: " + addonCategoryResponse);
+        addonCategoryResponse addonCategoryResponse = addonCategoryService.saveAddonCategory(request);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
@@ -55,7 +54,7 @@ public class AddonCategoryController {
 
     @PutMapping("{id}")
     public ResponseEntity<Void> updateAddonCategory(@Valid @PathVariable Integer id,
-            @RequestBody AddonCategoryRequest addonCategory) {
+            @RequestBody addonCategoryRequest addonCategory) {
         addonCategoryService.updateAddonCategory(id, addonCategory);
         return ResponseEntity.ok().build();
 

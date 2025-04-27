@@ -5,7 +5,7 @@ import java.util.List;
 import br.fatec.easycoast.entities.AddonCategory;
 
 //AddonCategoryFiltered é uma classe que não tem o Product porque é redundante e vai dar loop com ela. 
-public record ProductResponse(
+public record productResponse(
                 Integer id,
                 String name,
                 String description,

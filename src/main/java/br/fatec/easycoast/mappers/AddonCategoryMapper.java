@@ -2,27 +2,26 @@ package br.fatec.easycoast.mappers;
 
 import java.util.List;
 
-import br.fatec.easycoast.dtos.AddonCategory.AddonCategoryFiltered;
-import br.fatec.easycoast.dtos.AddonCategory.AddonCategoryNoList;
-import br.fatec.easycoast.dtos.AddonCategory.AddonCategoryNoProduct;
-import br.fatec.easycoast.dtos.AddonCategory.AddonCategoryRequest;
-import br.fatec.easycoast.dtos.AddonCategory.AddonCategoryResponse;
+import br.fatec.easycoast.dtos.AddonCategory.addonCategoryFiltered;
+import br.fatec.easycoast.dtos.AddonCategory.addonCategoryNoList;
+import br.fatec.easycoast.dtos.AddonCategory.addonCategoryNoProduct;
+import br.fatec.easycoast.dtos.AddonCategory.addonCategoryRequest;
+import br.fatec.easycoast.dtos.AddonCategory.addonCategoryResponse;
 import br.fatec.easycoast.entities.AddonCategory;
 
 public class AddonCategoryMapper {
 
-    public static AddonCategory ToEntity(AddonCategoryRequest request) {
+    public static AddonCategory ToEntity(addonCategoryRequest request) {
         AddonCategory addonCategory = new AddonCategory();
         addonCategory.setName(request.name());
         addonCategory.setType(request.type());
         addonCategory.setProduct(request.product());
-        addonCategory.setAddons(request.addons());
         return addonCategory;
     }
 
-    public static AddonCategoryResponse toDTO(AddonCategory addonCategory) {
+    public static addonCategoryResponse toDTO(AddonCategory addonCategory) {
 
-        return new AddonCategoryResponse(
+        return new addonCategoryResponse(
                 addonCategory.getId(),
                 addonCategory.getName(),
                 addonCategory.getType(),
@@ -34,8 +33,8 @@ public class AddonCategoryMapper {
 
     }
 
-    public static AddonCategoryFiltered toGetDTO(AddonCategory addonCategory) {
-        return new AddonCategoryFiltered(
+    public static addonCategoryFiltered toGetDTO(AddonCategory addonCategory) {
+        return new addonCategoryFiltered(
                 addonCategory.getId(),
                 addonCategory.getName(),
                 addonCategory.getType(),
@@ -46,25 +45,25 @@ public class AddonCategoryMapper {
 
     }
 
-    public static AddonCategoryNoProduct getAddonCategoryNoProduct(AddonCategory addonCategory) {
-        return new AddonCategoryNoProduct(
+    public static addonCategoryNoProduct getAddonCategoryNoProduct(AddonCategory addonCategory) {
+        return new addonCategoryNoProduct(
                 addonCategory.getId(), addonCategory.getName(), addonCategory.getType(),
                 AddonMapper.getAddonFiltered(addonCategory.getAddons()));
 
     }
 
     // Retornar lista sem produto para POST
-    public static List<AddonCategoryNoProduct> getAddonCategoriesNoProducts(List<AddonCategory> addonCategories) {
-        List<AddonCategoryNoProduct> addonCategoriesNoProducts = addonCategories.stream()
-                .map(addonCategory -> new AddonCategoryNoProduct(addonCategory.getId(), addonCategory.getName(),
+    public static List<addonCategoryNoProduct> getAddonCategoriesNoProducts(List<AddonCategory> addonCategories) {
+        List<addonCategoryNoProduct> addonCategoriesNoProducts = addonCategories.stream()
+                .map(addonCategory -> new addonCategoryNoProduct(addonCategory.getId(), addonCategory.getName(),
                         addonCategory.getType(), AddonMapper.getAddonFiltered(addonCategory.getAddons())))
                 .toList();
         return addonCategoriesNoProducts;
 
     }
 
-    public static AddonCategoryNoList getAddonCategoryNoList(AddonCategory addonCategory) {
-        return new AddonCategoryNoList(
+    public static addonCategoryNoList getAddonCategoryNoList(AddonCategory addonCategory) {
+        return new addonCategoryNoList(
                 addonCategory.getId(),
                 addonCategory.getName(),
                 addonCategory.getType(),

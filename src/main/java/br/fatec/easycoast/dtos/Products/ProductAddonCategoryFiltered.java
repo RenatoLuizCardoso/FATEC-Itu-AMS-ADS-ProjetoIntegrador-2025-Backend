@@ -2,9 +2,9 @@ package br.fatec.easycoast.dtos.Products;
 
 import java.util.List;
 
-import br.fatec.easycoast.dtos.AddonCategory.AddonCategoryNoProduct;
+import br.fatec.easycoast.dtos.AddonCategory.addonCategoryNoProduct;
 
-public record ProductAddonCategoryFiltered(
+public record productAddonCategoryFiltered(
         Integer id,
         String name,
         String description,
@@ -13,7 +13,7 @@ public record ProductAddonCategoryFiltered(
         Boolean availability,
         String category,
         String imageurl,
-        List<AddonCategoryNoProduct> addonCategories
+        List<addonCategoryNoProduct> addonCategories
 
 ) {
 }

@@ -1,12 +1,11 @@
 package br.fatec.easycoast.dtos.AddonCategory;
 
-import br.fatec.easycoast.dtos.Products.ProductFiltered;
-import br.fatec.easycoast.entities.resources.AddonType;
+import br.fatec.easycoast.dtos.Products.productFiltered;
 
-public record AddonCategoryNoList(
-        Integer id,
-        String name,
-        AddonType type,
-        ProductFiltered product) {
+public record addonCategoryNoList(
+                Integer id,
+                String name,
+                addonType type,
+                productFiltered product) {
 
 }

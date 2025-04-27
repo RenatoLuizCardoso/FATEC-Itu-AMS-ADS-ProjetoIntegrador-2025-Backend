@@ -10,7 +10,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
-public record ProductRequest(
+public record productRequest(
         @NotBlank(message = "Product name cannot be blank") @Size(min = 3, message = "Minimum length for the name is 3 characters") String name,
 
         @NotBlank(message = "Description cannot be blank") @Size(min = 10, message = "Minimum length for the description is 10 characters") String description,

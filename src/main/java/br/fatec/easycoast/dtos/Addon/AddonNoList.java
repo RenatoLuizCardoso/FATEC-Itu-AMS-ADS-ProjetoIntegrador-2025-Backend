@@ -1,7 +1,7 @@
 package br.fatec.easycoast.dtos.Addon;
 
 import br.fatec.easycoast.dtos.ItemResponse;
-import br.fatec.easycoast.dtos.AddonCategory.AddonCategoryNoList;
+import br.fatec.easycoast.dtos.AddonCategory.addonCategoryNoList;
 
 public record AddonNoList(
         Integer id,
@@ -9,5 +9,5 @@ public record AddonNoList(
         Float price,
         Boolean availability,
         ItemResponse item,
-        AddonCategoryNoList addonCategory) {
+        addonCategoryNoList addonCategory) {
 }

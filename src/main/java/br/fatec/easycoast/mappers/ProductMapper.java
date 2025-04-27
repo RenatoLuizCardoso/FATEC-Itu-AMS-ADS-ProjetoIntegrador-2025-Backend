@@ -1,14 +1,14 @@
 package br.fatec.easycoast.mappers;
 
-import br.fatec.easycoast.dtos.Products.ProductAddonCategoryFiltered;
-import br.fatec.easycoast.dtos.Products.ProductFiltered;
-import br.fatec.easycoast.dtos.Products.ProductRequest;
-import br.fatec.easycoast.dtos.Products.ProductResponse;
+import br.fatec.easycoast.dtos.Products.productAddonCategoryFiltered;
+import br.fatec.easycoast.dtos.Products.productFiltered;
+import br.fatec.easycoast.dtos.Products.productRequest;
+import br.fatec.easycoast.dtos.Products.productResponse;
 import br.fatec.easycoast.entities.Product;
 
 public class ProductMapper {
 
-  public static Product toEntity(ProductRequest request) {
+  public static Product toEntity(productRequest request) {
     Product product = new Product();
 
     product.setName(request.name());
@@ -24,9 +24,9 @@ public class ProductMapper {
   }
 
   // Método e classe utilizado para POST
-  public static ProductResponse toDTO(Product product) {
+  public static productResponse toDTO(Product product) {
 
-    return new ProductResponse(
+    return new productResponse(
         product.getId(),
         product.getName(),
         product.getDescription(),
@@ -41,8 +41,8 @@ public class ProductMapper {
 
   }
 
-  public static ProductAddonCategoryFiltered toDTOFiltered(Product product) {
-    return new ProductAddonCategoryFiltered(
+  public static productAddonCategoryFiltered toDTOFiltered(Product product) {
+    return new productAddonCategoryFiltered(
         product.getId(),
         product.getName(),
         product.getDescription(),
@@ -57,8 +57,8 @@ public class ProductMapper {
 
   }
 
-  public static ProductFiltered getProductFiltered(Product product) {
-    return new ProductFiltered(
+  public static productFiltered getProductFiltered(Product product) {
+    return new productFiltered(
         product.getId(),
         product.getName(),
         product.getDescription(),
