@@ -1,6 +1,6 @@
 package br.fatec.easycoast.entities;
 
-import br.fatec.easycoast.dtos.Addon.AddonFiltered;
+import br.fatec.easycoast.dtos.Addon.addonFiltered;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -36,7 +36,7 @@ public class Addon {
     public Addon() {
     }
 
-    public Addon(AddonFiltered addonFiltered) {
+    public Addon(addonFiltered addonFiltered) {
         this.id = addonFiltered.id();
         this.name = addonFiltered.name();
         this.price = addonFiltered.price();
@@ -86,8 +86,8 @@ public class Addon {
 
     // Aqui o item vai enviar a cópia de si mesmo filtrado com a classe
     // ItemResponse.
-    public AddonFiltered getAddonFiltered() {
-        return new AddonFiltered(id, name, price, availability, item != null ? item.getItemResponse() : null);
+    public addonFiltered getAddonFiltered() {
+        return new addonFiltered(id, name, price, availability, item != null ? item.getItemResponse() : null);
     }
 
     public AddonCategory getAddonCategory() {

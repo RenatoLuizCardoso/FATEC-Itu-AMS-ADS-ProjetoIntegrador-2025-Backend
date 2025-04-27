@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import br.fatec.easycoast.dtos.Addon.AddonNoList;
-import br.fatec.easycoast.dtos.Addon.AddonRequest;
-import br.fatec.easycoast.dtos.Addon.AddonResponse;
+import br.fatec.easycoast.dtos.Addon.addonNoList;
+import br.fatec.easycoast.dtos.Addon.addonRequest;
+import br.fatec.easycoast.dtos.Addon.addonResponse;
 import br.fatec.easycoast.services.AddonService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,20 +32,20 @@ public class AddonController {
     // Adicionei AddonNoList par não dar loop, pois o AddonResponse já está sendo
     // utilizado para POST.
     @GetMapping
-    public ResponseEntity<List<AddonNoList>> getAddons() {
+    public ResponseEntity<List<addonNoList>> getAddons() {
         return ResponseEntity.ok(addonService.getAddons());
     }
 
     // A mesma situação do código acima.
     @GetMapping("{id}")
-    public ResponseEntity<AddonNoList> getAddonById(@PathVariable Integer id) {
+    public ResponseEntity<addonNoList> getAddonById(@PathVariable Integer id) {
         return ResponseEntity.ok(addonService.getAddonById(id));
     }
 
     @PostMapping
-    public ResponseEntity<AddonResponse> save(@Valid @RequestBody AddonRequest request) {
+    public ResponseEntity<addonResponse> save(@Valid @RequestBody addonRequest request) {
 
-        AddonResponse newAddon = addonService.save(request);
+        addonResponse newAddon = addonService.save(request);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
@@ -57,7 +57,7 @@ public class AddonController {
 
     @PutMapping("{id}")
     public ResponseEntity<Void> updateAddon(@Valid @PathVariable Integer id,
-            @RequestBody AddonRequest request) {
+            @RequestBody addonRequest request) {
         addonService.updateAddon(id, request);
         ;
         return ResponseEntity.ok().build();
