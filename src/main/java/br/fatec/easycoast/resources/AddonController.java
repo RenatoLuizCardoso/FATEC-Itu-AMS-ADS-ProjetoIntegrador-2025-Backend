@@ -17,7 +17,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import br.fatec.easycoast.dtos.Addon.AddonNoList;
 import br.fatec.easycoast.dtos.Addon.AddonRequest;
 import br.fatec.easycoast.dtos.Addon.AddonResponse;
-import br.fatec.easycoast.dtos.AddonCategory.AddonCategoryRequest;
 import br.fatec.easycoast.services.AddonService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.RequestMapping;
