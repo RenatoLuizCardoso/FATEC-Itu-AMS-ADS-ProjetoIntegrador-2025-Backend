@@ -90,12 +90,6 @@ public class Addon {
         return new AddonFiltered(id, name, price, availability, item != null ? item.getItemResponse() : null);
     }
 
-    // Aqui ele vai utilizar o método do Mapper para gerar a classe
-    // AddonCtegoryNoList, que não tem lista de addon para não dar loop.
-    // public AddonCategoryNoList getAddonCategoryNoList() {
-    // return AddonCategoryMapper.getAddonCategoryNoList(addonCategory);
-    // }
-
     public AddonCategory getAddonCategory() {
         return addonCategory;
     }

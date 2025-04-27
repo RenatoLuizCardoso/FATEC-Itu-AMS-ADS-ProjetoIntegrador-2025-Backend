@@ -27,11 +27,6 @@ public class Item {
     public Item() {
     }
 
-    // public Item(Integer id, String name){
-    // this.id = id;
-    // this.name = name;
-    // }
-
     public Item(ItemResponse itemResponse) {
         this.id = itemResponse.id();
         this.name = itemResponse.name();
