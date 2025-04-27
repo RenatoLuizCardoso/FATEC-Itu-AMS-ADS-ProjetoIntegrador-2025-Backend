@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import br.fatec.easycoast.dtos.AddonCategory.AddonCategoryFiltered;
 import br.fatec.easycoast.dtos.AddonCategory.AddonCategoryRequest;
 import br.fatec.easycoast.dtos.AddonCategory.AddonCategoryResponse;
 import br.fatec.easycoast.services.AddonCategoryService;
@@ -29,18 +30,20 @@ public class AddonCategoryController {
     private AddonCategoryService addonCategoryService;
 
     @GetMapping
-    public ResponseEntity<List<AddonCategoryResponse>> getAddonCategories() {
+    public ResponseEntity<List<AddonCategoryFiltered>> getAddonCategories() {
         return ResponseEntity.ok(addonCategoryService.getAddonCategories());
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<AddonCategoryResponse> getAddonCategory(@PathVariable Integer id) {
+    public ResponseEntity<AddonCategoryFiltered> getAddonCategory(@PathVariable Integer id) {
         return ResponseEntity.ok(addonCategoryService.getAddonCategory(id));
     }
 
     @PostMapping
     public ResponseEntity<AddonCategoryResponse> saveAddonCategory(@Valid @RequestBody AddonCategoryRequest request) {
+
         AddonCategoryResponse addonCategoryResponse = addonCategoryService.saveAddonCategory(request);
+        System.out.println("addon: " + addonCategoryResponse);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")

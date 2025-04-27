@@ -1,21 +1,18 @@
 package br.fatec.easycoast.dtos.Addon;
 
+import br.fatec.easycoast.entities.AddonCategory;
 import br.fatec.easycoast.entities.Item;
-import br.fatec.easycoast.entities.Product;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public record AddonRequest(
 
-                @NotBlank(message = "Nome do adicional não pode ser em branco") @Size(min = 3, message = "Tamanho mínimo para nome dp adicional é 3") String name,
-                Float price,
-
-                @NotNull(message = "Disponibilidade não pode ser nulo") Boolean avaliability,
-
-                @NotNull(message = "Produto não pode ser nulo") Product product,
-
-                @NotNull(message = "Item não pode ser nulo") Item item
+        @NotBlank(message = "Nome do adicional não pode ser em branco") @Size(min = 3, message = "Tamanho mínimo para nome dp adicional é 3") String name,
+        Float price,
+        @NotNull(message = "A disponibilidade não pode ser nula aqui.") Boolean availability,
+        Item item,
+        AddonCategory addonCategory
 
 ) {
 }

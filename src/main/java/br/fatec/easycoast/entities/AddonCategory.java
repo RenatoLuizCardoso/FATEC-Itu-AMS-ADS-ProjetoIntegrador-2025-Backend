@@ -14,12 +14,12 @@ import jakarta.persistence.Table;
 
 import java.util.List;
 
-import br.fatec.easycoast.dtos.ItemResponse;
-import br.fatec.easycoast.dtos.Addon.AddonFiltered;
 import br.fatec.easycoast.dtos.AddonCategory.AddonCategoryFiltered;
+import br.fatec.easycoast.dtos.AddonCategory.AddonCategoryProductFiltered;
 import br.fatec.easycoast.dtos.Products.ProductFiltered;
 import br.fatec.easycoast.entities.resources.AddonType;
 import br.fatec.easycoast.mappers.AddonMapper;
+import br.fatec.easycoast.mappers.ProductMapper;
 
 @Entity
 @Table(name = "TBL_ADDONCATEGORY")
@@ -40,18 +40,10 @@ public class AddonCategory {
     @JoinColumn(name = "PRODUCT_ID")
     private Product product;
 
-    @OneToMany
-    @JoinColumn(name = "ADDON_ID")
+    @OneToMany(mappedBy = "addonCategory")
     private List<Addon> addons;
 
     public AddonCategory() {
-    }
-
-    public AddonCategory(AddonCategoryFiltered addonCategoryFiltered) {
-        this.id = addonCategoryFiltered.id();
-        this.name = addonCategoryFiltered.name();
-        this.type = addonCategoryFiltered.type();
-        this.addons = addonCategoryFiltered.addons();
     }
 
     public AddonCategory(Integer id, String name, AddonType type, List<Addon> addons) {
@@ -85,10 +77,12 @@ public class AddonCategory {
         this.type = type;
     }
 
-    public ProductFiltered getProduct() {
+    public ProductFiltered getProductFiltered() {
+        return ProductMapper.getProductFiltered(product);
+    }
 
-        return new ProductFiltered(product.getId(), product.getName(), product.getDescription(), product.getPrice(),
-                product.getDiscount(), product.getAvailability(), product.getCategory(), product.getImageurl());
+    public Product getProduct() {
+        return product;
     }
 
     public void setProduct(Product product) {
@@ -99,12 +93,29 @@ public class AddonCategory {
         return addons;
     }
 
-    public List<AddonFiltered> getAddonFiltered() {
-        List<AddonFiltered> addonFiltered = addons.stream()
-                .map(a -> a.getAddonFiltered())
-                .toList();
-        return addonFiltered;
+    // Método utilizado para conseguir o GET na hora de consultar somente o
+    // AddonCategory
+    public AddonCategoryFiltered getaAddonCategoryFiltered() {
+        return new AddonCategoryFiltered(id, name, type, ProductMapper.getProductFiltered(product),
+                AddonMapper.getAddonFiltered(addons));
+    }
 
+    // Método para consulta de Products, retornando a classe filtrada.
+    // public AddonCategoryNoProduct getAddonCategoryNoProduct() {
+    // return new AddonCategoryNoProduct(id, name, type,
+    // AddonMapper.getAddonFiltered(addons));
+    // }
+    public AddonCategoryFiltered getAddonCategoryFiltered() {
+        return new AddonCategoryFiltered(
+                id,
+                name,
+                type,
+                ProductMapper.getProductFiltered(product),
+                AddonMapper.getAddonFiltered(addons));
+    }
+
+    public AddonCategoryProductFiltered getAddonCategoryProductFiltered() {
+        return new AddonCategoryProductFiltered(id, name, type, getProductFiltered(), addons);
     }
 
     public void setAddons(List<Addon> addons) {

@@ -9,12 +9,15 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import br.fatec.easycoast.dtos.Addon.AddonNoList;
 import br.fatec.easycoast.dtos.Addon.AddonRequest;
 import br.fatec.easycoast.dtos.Addon.AddonResponse;
+import br.fatec.easycoast.dtos.AddonCategory.AddonCategoryRequest;
 import br.fatec.easycoast.services.AddonService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,18 +30,22 @@ public class AddonController {
     @Autowired
     private AddonService addonService;
 
+    // Adicionei AddonNoList par não dar loop, pois o AddonResponse já está sendo
+    // utilizado para POST.
     @GetMapping
-    public ResponseEntity<List<AddonResponse>> getAddons() {
+    public ResponseEntity<List<AddonNoList>> getAddons() {
         return ResponseEntity.ok(addonService.getAddons());
     }
 
+    // A mesma situação do código acima.
     @GetMapping("{id}")
-    public ResponseEntity<AddonResponse> getAddonById(@PathVariable Integer id) {
+    public ResponseEntity<AddonNoList> getAddonById(@PathVariable Integer id) {
         return ResponseEntity.ok(addonService.getAddonById(id));
     }
 
     @PostMapping
     public ResponseEntity<AddonResponse> save(@Valid @RequestBody AddonRequest request) {
+
         AddonResponse newAddon = addonService.save(request);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
@@ -47,6 +54,15 @@ public class AddonController {
                 .toUri();
 
         return ResponseEntity.created(location).body(newAddon);
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity<Void> updateAddon(@Valid @PathVariable Integer id,
+            @RequestBody AddonRequest request) {
+        addonService.updateAddon(id, request);
+        ;
+        return ResponseEntity.ok().build();
+
     }
 
 }

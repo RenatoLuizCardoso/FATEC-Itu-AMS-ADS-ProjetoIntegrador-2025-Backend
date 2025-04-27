@@ -1,5 +1,9 @@
 package br.fatec.easycoast.mappers;
 
+import java.util.List;
+
+import br.fatec.easycoast.dtos.Addon.AddonFiltered;
+import br.fatec.easycoast.dtos.Addon.AddonNoList;
 import br.fatec.easycoast.dtos.Addon.AddonRequest;
 import br.fatec.easycoast.dtos.Addon.AddonResponse;
 import br.fatec.easycoast.entities.Addon;
@@ -7,13 +11,12 @@ import br.fatec.easycoast.entities.Addon;
 public class AddonMapper {
 
     public static Addon toEntity(AddonRequest request) {
-
         Addon addon = new Addon();
         addon.setName(request.name());
         addon.setPrice(request.price());
-        addon.setAvailability(request.avaliability());
-        addon.setProduct(request.product());
+        addon.setAvailability(request.availability());
         addon.setItem(request.item());
+        addon.setAddonCategory(request.addonCategory());
         return addon;
     }
 
@@ -24,20 +27,42 @@ public class AddonMapper {
                 addon.getName(),
                 addon.getPrice(),
                 addon.getAvailability(),
-                ProductMapper.toDTO(addon.getProduct()),
-                ItemMapper.toDTO(addon.getItem()));
+                ItemMapper.toDTO(addon.getItem()),
+                AddonCategoryMapper.toDTO(addon.getAddonCategory())
+
+        );
 
     }
 
-    public static AddonResponse toPostDTO(Addon addon) {
+    public static List<AddonResponse> toListDTO(List<Addon> addons) {
+        List<AddonResponse> addonResponses = addons.stream()
+                .map(addon -> toDTO(addon))
+                .toList();
+        return addonResponses;
+    }
 
-        return new AddonResponse(
+    // Método para enviar somente o AddonCategory, e não enviar Addons também para
+    // não ficar redudante e dar loop.
+    public static AddonNoList toDTONoList(Addon addon) {
+
+        return new AddonNoList(
                 addon.getId(),
                 addon.getName(),
                 addon.getPrice(),
                 addon.getAvailability(),
-                ProductMapper.toDTO(addon.getProduct()),
-                ItemMapper.toDTO(addon.getItem()));
+                ItemMapper.toDTO(addon.getItem()),
+                addon.getAddonCategory() != null ? AddonCategoryMapper.getAddonCategoryNoList(addon.getAddonCategory())
+                        : null);
+
+    }
+
+    // Vai converter List<Addon> em AddonFiltered para não enviar produto para não
+    // ficar redundante na hora de pesquisar o produto.
+    public static List<AddonFiltered> getAddonFiltered(List<Addon> addons) {
+        List<AddonFiltered> addonFiltered = addons.stream()
+                .map(a -> a.getAddonFiltered())
+                .toList();
+        return addonFiltered;
 
     }
 

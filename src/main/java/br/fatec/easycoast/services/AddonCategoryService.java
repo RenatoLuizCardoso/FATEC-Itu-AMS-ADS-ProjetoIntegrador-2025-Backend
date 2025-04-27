@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.fatec.easycoast.dtos.AddonCategory.AddonCategoryFiltered;
 import br.fatec.easycoast.dtos.AddonCategory.AddonCategoryRequest;
 import br.fatec.easycoast.dtos.AddonCategory.AddonCategoryResponse;
 import br.fatec.easycoast.entities.AddonCategory;
@@ -18,23 +19,22 @@ public class AddonCategoryService {
     @Autowired
     private AddonCategoryRepository addonCategoryRepository;
 
-    public List<AddonCategoryResponse> getAddonCategories() {
+    public List<AddonCategoryFiltered> getAddonCategories() {
         List<AddonCategory> addonCategories = addonCategoryRepository.findAll();
         return addonCategories.stream()
-                .map(addoncategory -> AddonCategoryMapper.toDTO(addoncategory))
+                .map(addoncategory -> AddonCategoryMapper.toGetDTO(addoncategory))
                 .toList();
     }
 
-    public AddonCategoryResponse getAddonCategory(Integer id) {
+    public AddonCategoryFiltered getAddonCategory(Integer id) {
         AddonCategory addonCategory = addonCategoryRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Categoria de adicional não encontrado. "));
-        return AddonCategoryMapper.toDTO(addonCategory);
+        return AddonCategoryMapper.toGetDTO(addonCategory);
 
     }
 
     public AddonCategoryResponse saveAddonCategory(AddonCategoryRequest request) {
         AddonCategory addonCategory = addonCategoryRepository.save(AddonCategoryMapper.ToEntity(request));
-        System.out.println(addonCategory);
         return AddonCategoryMapper.toDTO(addonCategory);
 
     }

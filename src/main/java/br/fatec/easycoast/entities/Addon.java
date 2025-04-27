@@ -1,8 +1,6 @@
 package br.fatec.easycoast.entities;
 
-import br.fatec.easycoast.dtos.ItemResponse;
 import br.fatec.easycoast.dtos.Addon.AddonFiltered;
-import br.fatec.easycoast.dtos.Addon.AddonResponse;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,12 +26,12 @@ public class Addon {
     private Boolean availability;
 
     @ManyToOne
-    @JoinColumn(name = "PRODUCT_ID")
-    private Product product;
-
-    @ManyToOne
     @JoinColumn(name = "ITEM_ID")
     private Item item;
+
+    @ManyToOne
+    @JoinColumn(name = "ADDONCATEGORY_ID")
+    private AddonCategory addonCategory;
 
     public Addon() {
     }
@@ -78,14 +76,6 @@ public class Addon {
         this.availability = availability;
     }
 
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
     public Item getItem() {
         return item;
     }
@@ -97,7 +87,21 @@ public class Addon {
     // Aqui o item vai enviar a cópia de si mesmo filtrado com a classe
     // ItemResponse.
     public AddonFiltered getAddonFiltered() {
-        return new AddonFiltered(id, name, price, availability, item.getItemResponse());
+        return new AddonFiltered(id, name, price, availability, item != null ? item.getItemResponse() : null);
+    }
+
+    // Aqui ele vai utilizar o método do Mapper para gerar a classe
+    // AddonCtegoryNoList, que não tem lista de addon para não dar loop.
+    // public AddonCategoryNoList getAddonCategoryNoList() {
+    // return AddonCategoryMapper.getAddonCategoryNoList(addonCategory);
+    // }
+
+    public AddonCategory getAddonCategory() {
+        return addonCategory;
+    }
+
+    public void setAddonCategory(AddonCategory addonCategory) {
+        this.addonCategory = addonCategory;
     }
 
 }

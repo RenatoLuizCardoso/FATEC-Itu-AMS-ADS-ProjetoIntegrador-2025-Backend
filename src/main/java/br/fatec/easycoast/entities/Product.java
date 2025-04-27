@@ -108,12 +108,21 @@ public class Product {
 
   // Coloquei o método GET que filtra ao invés de resgatar a classe AddonCategory
   // original, para tirar o Product, porque é redundante.
-  //
-  public List<AddonCategoryFiltered> getAddonsCategories() {
+
+  // OBS: Eu coloquei o método que cria um novo objeto, parecido com os métodos do
+  // modelo Prototype. Ele retorna ele mesmo com base na outra classe.
+
+  // Método utilizado somente para conseguir o AddonCategory, que vem juntamente
+  // com o Product. Não pode ser utilizado para consulta do Products.
+  public List<AddonCategoryFiltered> returnAddonsCategories() {
     List<AddonCategoryFiltered> addonsCategories2 = addonsCategories.stream()
-        .map(a -> new AddonCategoryFiltered(a.getId(), a.getName(), a.getType(), a.getAddons()))
+        .map(a -> a.getaAddonCategoryFiltered())
         .toList();
     return addonsCategories2;
+  }
+
+  public List<AddonCategory> getAddonsCategories() {
+    return addonsCategories;
   }
 
   public void setAddonsCategories(List<AddonCategory> addonsCategories) {
