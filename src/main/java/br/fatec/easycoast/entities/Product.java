@@ -2,7 +2,6 @@ package br.fatec.easycoast.entities;
 
 import java.util.List;
 
-import br.fatec.easycoast.dtos.AddonCategory.AddonCategoryFiltered;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -104,21 +103,6 @@ public class Product {
 
   public void setImageurl(String imageurl) {
     this.imageurl = imageurl;
-  }
-
-  // Coloquei o método GET que filtra ao invés de resgatar a classe AddonCategory
-  // original, para tirar o Product, porque é redundante.
-
-  // OBS: Eu coloquei o método que cria um novo objeto, parecido com os métodos do
-  // modelo Prototype. Ele retorna ele mesmo com base na outra classe.
-
-  // Método utilizado somente para conseguir o AddonCategory, que vem juntamente
-  // com o Product. Não pode ser utilizado para consulta do Products.
-  public List<AddonCategoryFiltered> returnAddonsCategories() {
-    List<AddonCategoryFiltered> addonsCategories2 = addonsCategories.stream()
-        .map(a -> a.getaAddonCategoryFiltered())
-        .toList();
-    return addonsCategories2;
   }
 
   public List<AddonCategory> getAddonsCategories() {

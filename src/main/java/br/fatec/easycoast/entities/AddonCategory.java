@@ -96,15 +96,14 @@ public class AddonCategory {
     // Método utilizado para conseguir o GET na hora de consultar somente o
     // AddonCategory
     public AddonCategoryFiltered getaAddonCategoryFiltered() {
-        return new AddonCategoryFiltered(id, name, type, ProductMapper.getProductFiltered(product),
+        return new AddonCategoryFiltered(
+                id,
+                name,
+                type,
+                ProductMapper.getProductFiltered(product),
                 AddonMapper.getAddonFiltered(addons));
     }
 
-    // Método para consulta de Products, retornando a classe filtrada.
-    // public AddonCategoryNoProduct getAddonCategoryNoProduct() {
-    // return new AddonCategoryNoProduct(id, name, type,
-    // AddonMapper.getAddonFiltered(addons));
-    // }
     public AddonCategoryFiltered getAddonCategoryFiltered() {
         return new AddonCategoryFiltered(
                 id,
