@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import br.fatec.easycoast.dtos.UserRequest;
-import br.fatec.easycoast.dtos.UserResponse;
+import br.fatec.easycoast.dtos.user.UserRequest;
+import br.fatec.easycoast.dtos.user.UserResponse;
 import br.fatec.easycoast.services.UserService;
 
 @RestController

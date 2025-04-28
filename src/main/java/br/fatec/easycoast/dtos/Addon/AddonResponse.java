@@ -1,6 +1,6 @@
 package br.fatec.easycoast.dtos.addon;
 
-import br.fatec.easycoast.dtos.ItemResponse;
+import br.fatec.easycoast.dtos.item.ItemResponse;
 import br.fatec.easycoast.dtos.addonCategory.AddonCategoryResponse;
 
 public record AddonResponse(

@@ -7,7 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import br.fatec.easycoast.dtos.ItemResponse;
+import br.fatec.easycoast.dtos.item.ItemResponse;
 import jakarta.persistence.Column;
 
 @Entity

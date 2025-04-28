@@ -1,8 +1,8 @@
 package br.fatec.easycoast.mappers;
 
-import br.fatec.easycoast.dtos.ItemRequest;
-import br.fatec.easycoast.dtos.ItemResponse;
-import br.fatec.easycoast.dtos.ItemsOnly;
+import br.fatec.easycoast.dtos.item.ItemRequest;
+import br.fatec.easycoast.dtos.item.ItemResponse;
+import br.fatec.easycoast.dtos.item.ItemsOnly;
 import br.fatec.easycoast.entities.Item;
 
 public class ItemMapper {

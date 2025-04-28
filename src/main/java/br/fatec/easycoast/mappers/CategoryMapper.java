@@ -1,7 +1,7 @@
 package br.fatec.easycoast.mappers;
 
-import br.fatec.easycoast.dtos.CategoryRequest;
-import br.fatec.easycoast.dtos.CategoryResponse;
+import br.fatec.easycoast.dtos.category.CategoryRequest;
+import br.fatec.easycoast.dtos.category.CategoryResponse;
 import br.fatec.easycoast.entities.Category;
 
 public class CategoryMapper {
