@@ -6,6 +6,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -26,6 +27,10 @@ public class Product {
 
   @OneToMany(mappedBy = "product")
   private List<AddonCategory> addonsCategories;
+
+  @OneToMany
+  @JoinColumn(name = "ITEM_ID")
+  private List<Item> items;
 
   public Product() {
   }
@@ -111,6 +116,14 @@ public class Product {
 
   public void setAddonsCategories(List<AddonCategory> addonsCategories) {
     this.addonsCategories = addonsCategories;
+  }
+
+  public List<Item> getItems() {
+    return items;
+  }
+
+  public void setItems(List<Item> items) {
+    this.items = items;
   }
 
 }

@@ -35,7 +35,7 @@ public class AddonService {
         return AddonMapper.toDTONoList(addon);
     }
 
-    public AddonResponse save(AddonRequest request) {
+    public AddonResponse saveAddon(AddonRequest request) {
         Addon addon = addonRepository.save(AddonMapper.toEntity(request));
         return AddonMapper.toDTO(addon);
     }

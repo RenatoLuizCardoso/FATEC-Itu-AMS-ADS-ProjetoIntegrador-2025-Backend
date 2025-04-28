@@ -19,6 +19,7 @@ public class ProductMapper {
     product.setCategory(request.category());
     product.setImageurl(request.imageurl());
     product.setAddonsCategories(request.addonCategories());
+    product.setItems(request.items());
 
     return product;
   }
@@ -35,7 +36,8 @@ public class ProductMapper {
         product.getAvailability(),
         product.getCategory(),
         product.getImageurl(),
-        product.getAddonsCategories() != null ? product.getAddonsCategories() : null
+        product.getAddonsCategories() != null ? product.getAddonsCategories() : null,
+        ItemMapper.toListDTO(product.getItems())
 
     );
 
@@ -51,7 +53,8 @@ public class ProductMapper {
         product.getAvailability(),
         product.getCategory(),
         product.getImageurl(),
-        AddonCategoryMapper.getAddonCategoriesNoProducts(product.getAddonsCategories())
+        AddonCategoryMapper.getAddonCategoriesNoProducts(product.getAddonsCategories()),
+        ItemMapper.toListItemResponseDTO(product.getItems())
 
     );
 
@@ -66,7 +69,8 @@ public class ProductMapper {
         product.getDiscount(),
         product.getAvailability(),
         product.getCategory(),
-        product.getImageurl());
+        product.getImageurl(),
+        product.getItems() != null ? ItemMapper.toListItemResponseDTO(product.getItems()) : null);
 
   }
 }

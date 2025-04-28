@@ -26,6 +26,13 @@ public class AddonCategoryService {
                 .toList();
     }
 
+    public List<AddonCategoryFiltered> getAddonCategoriesWithProduct(int id) {
+        List<AddonCategory> addonCategories = addonCategoryRepository.findByProductId(id);
+        return addonCategories.stream()
+                .map(addoncategory -> AddonCategoryMapper.toGetDTO(addoncategory))
+                .toList();
+    }
+
     public AddonCategoryFiltered getAddonCategory(Integer id) {
         AddonCategory addonCategory = addonCategoryRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Categoria de adicional não encontrado. "));
