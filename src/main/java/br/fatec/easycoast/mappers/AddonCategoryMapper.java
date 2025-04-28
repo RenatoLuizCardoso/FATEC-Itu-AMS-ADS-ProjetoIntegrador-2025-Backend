@@ -2,7 +2,11 @@ package br.fatec.easycoast.mappers;
 
 import java.util.List;
 
-import br.fatec.easycoast.dtos.addonCategory.*;
+import br.fatec.easycoast.dtos.addonCategory.AddonCategoryFiltered;
+import br.fatec.easycoast.dtos.addonCategory.AddonCategoryNoList;
+import br.fatec.easycoast.dtos.addonCategory.AddonCategoryNoProduct;
+import br.fatec.easycoast.dtos.addonCategory.AddonCategoryRequest;
+import br.fatec.easycoast.dtos.addonCategory.AddonCategoryResponse;
 import br.fatec.easycoast.entities.AddonCategory;
 
 public class AddonCategoryMapper {

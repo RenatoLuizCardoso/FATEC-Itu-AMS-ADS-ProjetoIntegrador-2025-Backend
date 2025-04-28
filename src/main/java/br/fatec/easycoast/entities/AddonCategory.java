@@ -1,12 +1,25 @@
 package br.fatec.easycoast.entities;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 import java.util.List;
 
-import br.fatec.easycoast.dtos.addonCategory.*;
+import br.fatec.easycoast.dtos.addonCategory.AddonCategoryFiltered;
+import br.fatec.easycoast.dtos.addonCategory.AddonCategoryProductFiltered;
+import br.fatec.easycoast.dtos.addonCategory.AddonType;
 import br.fatec.easycoast.dtos.product.ProductFiltered;
-import br.fatec.easycoast.mappers.*;
+import br.fatec.easycoast.mappers.AddonMapper;
+import br.fatec.easycoast.mappers.ProductMapper;
 
 @Entity
 @Table(name = "TBL_ADDONCATEGORY")

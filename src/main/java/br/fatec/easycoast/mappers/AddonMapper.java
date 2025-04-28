@@ -2,7 +2,10 @@ package br.fatec.easycoast.mappers;
 
 import java.util.List;
 
-import br.fatec.easycoast.dtos.addon.*;
+import br.fatec.easycoast.dtos.addon.AddonFiltered;
+import br.fatec.easycoast.dtos.addon.AddonNoList;
+import br.fatec.easycoast.dtos.addon.AddonRequest;
+import br.fatec.easycoast.dtos.addon.AddonResponse;
 import br.fatec.easycoast.entities.Addon;
 
 public class AddonMapper {

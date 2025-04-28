@@ -1,6 +1,9 @@
 package br.fatec.easycoast.mappers;
 
-import br.fatec.easycoast.dtos.product.*;
+import br.fatec.easycoast.dtos.product.ProductAddonCategoryFiltered;
+import br.fatec.easycoast.dtos.product.ProductFiltered;
+import br.fatec.easycoast.dtos.product.ProductRequest;
+import br.fatec.easycoast.dtos.product.ProductResponse;
 import br.fatec.easycoast.entities.Product;
 
 public class ProductMapper {
