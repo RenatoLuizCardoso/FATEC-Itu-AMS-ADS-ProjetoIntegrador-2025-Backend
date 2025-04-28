@@ -1,8 +1,8 @@
-package br.fatec.easycoast.dtos.Addon;
+package br.fatec.easycoast.dtos.addon;
 
 import br.fatec.easycoast.dtos.ItemResponse;
 
-public record addonFiltered(
+public record AddonFiltered(
         Integer id,
         String name,
         Float price,

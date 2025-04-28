@@ -1,6 +1,6 @@
-package br.fatec.easycoast.dtos.AddonCategory;
+package br.fatec.easycoast.dtos.addonCategory;
 
-public enum addonType {
+public enum AddonType {
     EXCLUSIVE,
     GENERAL
 

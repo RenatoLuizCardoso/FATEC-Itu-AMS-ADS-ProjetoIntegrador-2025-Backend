@@ -1,14 +1,7 @@
 package br.fatec.easycoast.entities;
 
-import br.fatec.easycoast.dtos.Addon.addonFiltered;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import br.fatec.easycoast.dtos.addon.AddonFiltered;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "TBL_ADDON")
@@ -36,7 +29,7 @@ public class Addon {
     public Addon() {
     }
 
-    public Addon(addonFiltered addonFiltered) {
+    public Addon(AddonFiltered addonFiltered) {
         this.id = addonFiltered.id();
         this.name = addonFiltered.name();
         this.price = addonFiltered.price();
@@ -86,8 +79,8 @@ public class Addon {
 
     // Aqui o item vai enviar a cópia de si mesmo filtrado com a classe
     // ItemResponse.
-    public addonFiltered getAddonFiltered() {
-        return new addonFiltered(id, name, price, availability, item != null ? item.getItemResponse() : null);
+    public AddonFiltered getAddonFiltered() {
+        return new AddonFiltered(id, name, price, availability, item != null ? item.getItemResponse() : null);
     }
 
     public AddonCategory getAddonCategory() {

@@ -5,20 +5,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import br.fatec.easycoast.dtos.Products.productAddonCategoryFiltered;
-import br.fatec.easycoast.dtos.Products.productRequest;
-import br.fatec.easycoast.dtos.Products.productResponse;
+import br.fatec.easycoast.dtos.product.*;
 import br.fatec.easycoast.services.ProductService;
 import jakarta.validation.Valid;
 
@@ -31,18 +21,18 @@ public class ProductController {
   private ProductService productService;
 
   @GetMapping("{id}")
-  public ResponseEntity<productAddonCategoryFiltered> getProductById(@PathVariable int id) {
+  public ResponseEntity<ProductAddonCategoryFiltered> getProductById(@PathVariable int id) {
     return ResponseEntity.ok(productService.getProductById(id));
   }
 
   @GetMapping
-  public ResponseEntity<List<productAddonCategoryFiltered>> getProducts() {
+  public ResponseEntity<List<ProductAddonCategoryFiltered>> getProducts() {
     return ResponseEntity.ok(productService.getProducts());
   }
 
   @PostMapping
-  public ResponseEntity<productResponse> postProduct(@Valid @RequestBody productRequest request) {
-    productResponse product = productService.postProduct(request);
+  public ResponseEntity<ProductResponse> postProduct(@Valid @RequestBody ProductRequest request) {
+    ProductResponse product = productService.postProduct(request);
     URI location = ServletUriComponentsBuilder
         .fromCurrentRequest()
         .path("/{id}")
@@ -53,7 +43,7 @@ public class ProductController {
   }
 
   @PutMapping("{id}")
-  public ResponseEntity<productResponse> putProduct(@Valid @PathVariable int id, @RequestBody productRequest request) {
+  public ResponseEntity<ProductResponse> putProduct(@Valid @PathVariable int id, @RequestBody ProductRequest request) {
     productService.putProduct(id, request);
     return ResponseEntity.ok().build();
   }

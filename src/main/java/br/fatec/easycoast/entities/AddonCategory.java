@@ -1,25 +1,12 @@
 package br.fatec.easycoast.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.List;
 
-import br.fatec.easycoast.dtos.AddonCategory.addonCategoryFiltered;
-import br.fatec.easycoast.dtos.AddonCategory.addonCategoryProductFiltered;
-import br.fatec.easycoast.dtos.AddonCategory.addonType;
-import br.fatec.easycoast.dtos.Products.productFiltered;
-import br.fatec.easycoast.mappers.AddonMapper;
-import br.fatec.easycoast.mappers.ProductMapper;
+import br.fatec.easycoast.dtos.addonCategory.*;
+import br.fatec.easycoast.dtos.product.ProductFiltered;
+import br.fatec.easycoast.mappers.*;
 
 @Entity
 @Table(name = "TBL_ADDONCATEGORY")
@@ -34,7 +21,7 @@ public class AddonCategory {
 
     @Column(nullable = false)
     @Enumerated(EnumType.ORDINAL)
-    private addonType type;
+    private AddonType type;
 
     @ManyToOne
     @JoinColumn(name = "PRODUCT_ID")
@@ -46,7 +33,7 @@ public class AddonCategory {
     public AddonCategory() {
     }
 
-    public AddonCategory(Integer id, String name, addonType type, List<Addon> addons) {
+    public AddonCategory(Integer id, String name, AddonType type, List<Addon> addons) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -69,15 +56,15 @@ public class AddonCategory {
         this.name = name;
     }
 
-    public addonType getType() {
+    public AddonType getType() {
         return type;
     }
 
-    public void setType(addonType type) {
+    public void setType(AddonType type) {
         this.type = type;
     }
 
-    public productFiltered getProductFiltered() {
+    public ProductFiltered getProductFiltered() {
         return ProductMapper.getProductFiltered(product);
     }
 
@@ -95,8 +82,8 @@ public class AddonCategory {
 
     // Método utilizado para conseguir o GET na hora de consultar somente o
     // AddonCategory
-    public addonCategoryFiltered getaAddonCategoryFiltered() {
-        return new addonCategoryFiltered(
+    public AddonCategoryFiltered getaAddonCategoryFiltered() {
+        return new AddonCategoryFiltered(
                 id,
                 name,
                 type,
@@ -104,8 +91,8 @@ public class AddonCategory {
                 AddonMapper.getAddonFiltered(addons));
     }
 
-    public addonCategoryFiltered getAddonCategoryFiltered() {
-        return new addonCategoryFiltered(
+    public AddonCategoryFiltered getAddonCategoryFiltered() {
+        return new AddonCategoryFiltered(
                 id,
                 name,
                 type,
@@ -113,8 +100,8 @@ public class AddonCategory {
                 AddonMapper.getAddonFiltered(addons));
     }
 
-    public addonCategoryProductFiltered getAddonCategoryProductFiltered() {
-        return new addonCategoryProductFiltered(id, name, type, getProductFiltered(), addons);
+    public AddonCategoryProductFiltered getAddonCategoryProductFiltered() {
+        return new AddonCategoryProductFiltered(id, name, type, getProductFiltered(), addons);
     }
 
     public void setAddons(List<Addon> addons) {

@@ -5,9 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.fatec.easycoast.dtos.Products.productAddonCategoryFiltered;
-import br.fatec.easycoast.dtos.Products.productRequest;
-import br.fatec.easycoast.dtos.Products.productResponse;
+import br.fatec.easycoast.dtos.product.*;
 import br.fatec.easycoast.entities.Product;
 import br.fatec.easycoast.mappers.ProductMapper;
 import br.fatec.easycoast.repositories.ProductRepository;
@@ -19,20 +17,20 @@ public class ProductService {
   @Autowired
   private ProductRepository repository;
 
-  public productAddonCategoryFiltered getProductById(int id) {
+  public ProductAddonCategoryFiltered getProductById(int id) {
     return ProductMapper
         .toDTOFiltered(repository.findById(id).orElseThrow(() -> (new EntityNotFoundException("Product not found"))));
   }
 
-  public List<productAddonCategoryFiltered> getProducts() {
+  public List<ProductAddonCategoryFiltered> getProducts() {
     return repository.findAll().stream().map(item -> ProductMapper.toDTOFiltered(item)).toList();
   }
 
-  public productResponse postProduct(productRequest request) {
+  public ProductResponse postProduct(ProductRequest request) {
     return ProductMapper.toDTO(repository.save(ProductMapper.toEntity(request)));
   }
 
-  public void putProduct(int id, productRequest request) {
+  public void putProduct(int id, ProductRequest request) {
     Product temp = repository.getReferenceById(id);
 
     temp.setName(request.name());

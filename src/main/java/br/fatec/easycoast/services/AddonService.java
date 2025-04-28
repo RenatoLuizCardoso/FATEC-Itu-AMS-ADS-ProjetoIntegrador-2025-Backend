@@ -5,9 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.fatec.easycoast.dtos.Addon.addonNoList;
-import br.fatec.easycoast.dtos.Addon.addonRequest;
-import br.fatec.easycoast.dtos.Addon.addonResponse;
+import br.fatec.easycoast.dtos.addon.*;
 import br.fatec.easycoast.entities.Addon;
 import br.fatec.easycoast.mappers.AddonMapper;
 import br.fatec.easycoast.repositories.AddonRepository;
@@ -21,7 +19,7 @@ public class AddonService {
 
     // Adicionei AddonNoList par não dar loop, pois o AddonResponse já está sendo
     // utilizado para POST.
-    public List<addonNoList> getAddons() {
+    public List<AddonNoList> getAddons() {
         List<Addon> addons = addonRepository.findAll();
         return addons.stream()
                 .map(addon -> AddonMapper.toDTONoList(addon))
@@ -29,18 +27,18 @@ public class AddonService {
     }
 
     // A mesma situação do código acima.
-    public addonNoList getAddonById(Integer id) {
+    public AddonNoList getAddonById(Integer id) {
         Addon addon = addonRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Adicional não encontrado"));
         return AddonMapper.toDTONoList(addon);
     }
 
-    public addonResponse save(addonRequest request) {
+    public AddonResponse save(AddonRequest request) {
         Addon addon = addonRepository.save(AddonMapper.toEntity(request));
         return AddonMapper.toDTO(addon);
     }
 
-    public void updateAddon(Integer id, addonRequest request) {
+    public void updateAddon(Integer id, AddonRequest request) {
         Addon addon = addonRepository.getReferenceById(id);
         addon.setName(request.name());
         addon.setPrice(request.price());

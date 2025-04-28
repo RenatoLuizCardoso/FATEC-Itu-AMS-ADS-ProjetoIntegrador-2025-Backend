@@ -1,11 +1,11 @@
-package br.fatec.easycoast.dtos.AddonCategory;
+package br.fatec.easycoast.dtos.addonCategory;
 
 import br.fatec.easycoast.entities.Product;
 import jakarta.validation.constraints.NotBlank;
 
-public record addonCategoryRequest(
+public record AddonCategoryRequest(
 
                 @NotBlank(message = "Nome da categoria de adicionais não pode ser vazio. ") String name,
-                addonType type,
+                AddonType type,
                 Product product) {
 }

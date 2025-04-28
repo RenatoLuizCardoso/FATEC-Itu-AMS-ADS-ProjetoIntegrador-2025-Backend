@@ -1,16 +1,16 @@
-package br.fatec.easycoast.dtos.AddonCategory;
+package br.fatec.easycoast.dtos.addonCategory;
 
 import java.util.List;
 
-import br.fatec.easycoast.dtos.Addon.addonFiltered;
-import br.fatec.easycoast.dtos.Products.productFiltered;
+import br.fatec.easycoast.dtos.addon.AddonFiltered;
+import br.fatec.easycoast.dtos.product.ProductFiltered;
 
 // ProductFiltered é uma classe que não tem o AddonCategory, porque é redundante, e vai dar loop. 
-public record addonCategoryResponse(
+public record AddonCategoryResponse(
                 Integer id,
                 String name,
-                addonType type,
-                productFiltered product,
-                List<addonFiltered> addons) {
+                AddonType type,
+                ProductFiltered product,
+                List<AddonFiltered> addons) {
 
 }

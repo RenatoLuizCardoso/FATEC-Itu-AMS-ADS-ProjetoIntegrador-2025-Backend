@@ -2,15 +2,12 @@ package br.fatec.easycoast.mappers;
 
 import java.util.List;
 
-import br.fatec.easycoast.dtos.Addon.addonFiltered;
-import br.fatec.easycoast.dtos.Addon.addonNoList;
-import br.fatec.easycoast.dtos.Addon.addonRequest;
-import br.fatec.easycoast.dtos.Addon.addonResponse;
+import br.fatec.easycoast.dtos.addon.*;
 import br.fatec.easycoast.entities.Addon;
 
 public class AddonMapper {
 
-    public static Addon toEntity(addonRequest request) {
+    public static Addon toEntity(AddonRequest request) {
         Addon addon = new Addon();
         addon.setName(request.name());
         addon.setPrice(request.price());
@@ -20,9 +17,9 @@ public class AddonMapper {
         return addon;
     }
 
-    public static addonResponse toDTO(Addon addon) {
+    public static AddonResponse toDTO(Addon addon) {
 
-        return new addonResponse(
+        return new AddonResponse(
                 addon.getId(),
                 addon.getName(),
                 addon.getPrice(),
@@ -34,8 +31,8 @@ public class AddonMapper {
 
     }
 
-    public static List<addonResponse> toListDTO(List<Addon> addons) {
-        List<addonResponse> addonResponses = addons.stream()
+    public static List<AddonResponse> toListDTO(List<Addon> addons) {
+        List<AddonResponse> addonResponses = addons.stream()
                 .map(addon -> toDTO(addon))
                 .toList();
         return addonResponses;
@@ -43,9 +40,9 @@ public class AddonMapper {
 
     // Método para enviar somente o AddonCategory, e não enviar Addons também para
     // não ficar redudante e dar loop.
-    public static addonNoList toDTONoList(Addon addon) {
+    public static AddonNoList toDTONoList(Addon addon) {
 
-        return new addonNoList(
+        return new AddonNoList(
                 addon.getId(),
                 addon.getName(),
                 addon.getPrice(),
@@ -58,8 +55,8 @@ public class AddonMapper {
 
     // Vai converter List<Addon> em AddonFiltered para não enviar produto para não
     // ficar redundante na hora de pesquisar o produto.
-    public static List<addonFiltered> getAddonFiltered(List<Addon> addons) {
-        List<addonFiltered> addonFiltered = addons.stream()
+    public static List<AddonFiltered> getAddonFiltered(List<Addon> addons) {
+        List<AddonFiltered> addonFiltered = addons.stream()
                 .map(a -> a.getAddonFiltered())
                 .toList();
         return addonFiltered;
