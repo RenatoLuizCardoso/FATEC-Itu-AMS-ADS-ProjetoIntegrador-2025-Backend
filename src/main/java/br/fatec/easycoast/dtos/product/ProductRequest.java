@@ -3,6 +3,8 @@ package br.fatec.easycoast.dtos.product;
 import java.util.List;
 
 import br.fatec.easycoast.entities.AddonCategory;
+import br.fatec.easycoast.entities.Category;
+import br.fatec.easycoast.entities.Item;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -21,10 +23,11 @@ public record ProductRequest(
 
                 @NotNull(message = "Availability cannot be null") Boolean availability,
 
-                @NotBlank(message = "Category cannot be blank") String category,
+                @NotNull(message = "Category cannot be null") Category category,
 
                 @NotBlank(message = "Image URL cannot be blank") String imageurl,
-                List<AddonCategory> addonCategories
+                List<AddonCategory> addonCategories,
+                List<Item> items
 
 ) {
 }

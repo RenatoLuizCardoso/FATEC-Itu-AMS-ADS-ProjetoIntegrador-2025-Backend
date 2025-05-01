@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import br.fatec.easycoast.dtos.addonCategory.AddonCategoryFiltered;
 import br.fatec.easycoast.dtos.product.ProductAddonCategoryFiltered;
 import br.fatec.easycoast.dtos.product.ProductRequest;
 import br.fatec.easycoast.dtos.product.ProductResponse;
+import br.fatec.easycoast.services.AddonCategoryService;
 import br.fatec.easycoast.services.ProductService;
 import jakarta.validation.Valid;
 
@@ -30,9 +32,17 @@ public class ProductController {
   @Autowired
   private ProductService productService;
 
+  @Autowired
+  private AddonCategoryService addonCategoryService;
+
   @GetMapping("{id}")
   public ResponseEntity<ProductAddonCategoryFiltered> getProductById(@PathVariable int id) {
     return ResponseEntity.ok(productService.getProductById(id));
+  }
+
+  @GetMapping("{id}/addonCategories")
+  public ResponseEntity<List<AddonCategoryFiltered>> getAddonCategoriesWithProductId(@PathVariable int id) {
+    return ResponseEntity.ok(addonCategoryService.getAddonCategoriesWithProduct(id));
   }
 
   @GetMapping
@@ -41,8 +51,8 @@ public class ProductController {
   }
 
   @PostMapping
-  public ResponseEntity<ProductResponse> postProduct(@Valid @RequestBody ProductRequest request) {
-    ProductResponse product = productService.postProduct(request);
+  public ResponseEntity<ProductResponse> saveProduct(@Valid @RequestBody ProductRequest request) {
+    ProductResponse product = productService.saveProduct(request);
     URI location = ServletUriComponentsBuilder
         .fromCurrentRequest()
         .path("/{id}")
@@ -53,8 +63,9 @@ public class ProductController {
   }
 
   @PutMapping("{id}")
-  public ResponseEntity<ProductResponse> putProduct(@Valid @PathVariable int id, @RequestBody ProductRequest request) {
-    productService.putProduct(id, request);
+  public ResponseEntity<ProductResponse> updateProduct(@Valid @PathVariable int id,
+      @RequestBody ProductRequest request) {
+    productService.updateProduct(id, request);
     return ResponseEntity.ok().build();
   }
 

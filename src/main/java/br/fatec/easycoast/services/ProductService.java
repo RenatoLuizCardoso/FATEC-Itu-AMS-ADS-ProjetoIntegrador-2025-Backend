@@ -28,11 +28,11 @@ public class ProductService {
     return repository.findAll().stream().map(item -> ProductMapper.toDTOFiltered(item)).toList();
   }
 
-  public ProductResponse postProduct(ProductRequest request) {
+  public ProductResponse saveProduct(ProductRequest request) {
     return ProductMapper.toDTO(repository.save(ProductMapper.toEntity(request)));
   }
 
-  public void putProduct(int id, ProductRequest request) {
+  public void updateProduct(int id, ProductRequest request) {
     Product temp = repository.getReferenceById(id);
 
     temp.setName(request.name());
@@ -42,6 +42,7 @@ public class ProductService {
     temp.setAvailability(request.availability());
     temp.setCategory(request.category());
     temp.setAddonsCategories(request.addonCategories());
+    temp.setItems(request.items());
 
     repository.save(temp);
 

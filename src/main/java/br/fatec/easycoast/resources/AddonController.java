@@ -43,9 +43,9 @@ public class AddonController {
     }
 
     @PostMapping
-    public ResponseEntity<AddonResponse> save(@Valid @RequestBody AddonRequest request) {
+    public ResponseEntity<AddonResponse> saveAddon(@Valid @RequestBody AddonRequest request) {
 
-        AddonResponse newAddon = addonService.save(request);
+        AddonResponse newAddon = addonService.saveAddon(request);
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")

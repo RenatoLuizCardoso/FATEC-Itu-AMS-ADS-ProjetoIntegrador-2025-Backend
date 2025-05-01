@@ -6,6 +6,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
@@ -21,16 +23,24 @@ public class Product {
   private Float price;
   private Float discount;
   private Boolean availability;
-  private String category;
+
+  @ManyToOne
+  @JoinColumn(name = "CATEGORY_ID")
+  private Category category;
+
   private String imageurl;
 
   @OneToMany(mappedBy = "product")
   private List<AddonCategory> addonsCategories;
 
+  @OneToMany
+  @JoinColumn(name = "ITEM_ID")
+  private List<Item> items;
+
   public Product() {
   }
 
-  public Product(Integer id, String name, Float price, Float discount, Boolean availability, String category,
+  public Product(Integer id, String name, Float price, Float discount, Boolean availability, Category category,
       String imageurl) {
     this.id = id;
     this.name = name;
@@ -39,6 +49,19 @@ public class Product {
     this.availability = availability;
     this.category = category;
     this.imageurl = imageurl;
+  }
+
+  public Product(Integer id, String name, Float price, Float discount, Boolean availability, Category category,
+      String imageurl, List<AddonCategory> addonCategories, List<Item> items) {
+    this.id = id;
+    this.name = name;
+    this.price = price;
+    this.discount = discount;
+    this.availability = availability;
+    this.category = category;
+    this.imageurl = imageurl;
+    this.addonsCategories = addonCategories;
+    this.items = items;
   }
 
   public Integer getId() {
@@ -89,16 +112,16 @@ public class Product {
     this.availability = availability;
   }
 
-  public String getCategory() {
+  public String getImageurl() {
+    return imageurl;
+  }
+
+  public Category getCategory() {
     return category;
   }
 
-  public void setCategory(String category) {
+  public void setCategory(Category category) {
     this.category = category;
-  }
-
-  public String getImageurl() {
-    return imageurl;
   }
 
   public void setImageurl(String imageurl) {
@@ -111,6 +134,14 @@ public class Product {
 
   public void setAddonsCategories(List<AddonCategory> addonsCategories) {
     this.addonsCategories = addonsCategories;
+  }
+
+  public List<Item> getItems() {
+    return items;
+  }
+
+  public void setItems(List<Item> items) {
+    this.items = items;
   }
 
 }
