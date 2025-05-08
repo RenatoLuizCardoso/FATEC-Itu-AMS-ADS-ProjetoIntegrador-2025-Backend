@@ -1,5 +1,6 @@
 package br.fatec.easycoast.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,6 +35,20 @@ public class CardService {
     public CardResponse saveCard(CardRequest request){ //Need the base Element, but without the ID
         Card card = cardRepository.save(CardMapper.toEntity(request)); //Save the element, and adding an ID
         return CardMapper.toDto(card); //Transform the element into a DTO
+    }
+
+    public List<CardResponse> printCards(int start, int end){
+        List<CardResponse> cards = new ArrayList<CardResponse>();
+        
+        for(int i = start; i <= end; i++){
+            try {
+                cards.add(this.getCard(i));
+            } catch (EntityNotFoundException e) {
+                cards.add(this.saveCard(new CardRequest(true, 1)));
+            }
+        }
+
+        return cards;
     }
 
     public void updateCard(int id, CardRequest request){

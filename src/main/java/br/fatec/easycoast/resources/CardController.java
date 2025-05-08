@@ -21,22 +21,22 @@ import br.fatec.easycoast.services.CardService;
 
 @RestController
 @CrossOrigin //Needed for the Frontend
-@RequestMapping("cards") //Pre sets the URI with cards
+@RequestMapping //Pre sets the URI with cards
 public class CardController {
     @Autowired
     CardService cardService;
 
-    @GetMapping
+    @GetMapping("cards")
     public ResponseEntity<List<CardResponse>> getCards() { //Response Entity to return the HTTP Status
         return ResponseEntity.ok(cardService.getCards()); //Ok == Status code 200
     }
 
-    @GetMapping("{id}")
+    @GetMapping("cards/{id}")
     public ResponseEntity<CardResponse> getCard(@PathVariable int id) { //PathVariable to get the id in the URL
         return ResponseEntity.ok(cardService.getCard(id));
     }
 
-    @PostMapping
+    @PostMapping("cards")
     public ResponseEntity<CardResponse> saveCard(@RequestBody CardRequest request){
         CardResponse response = cardService.saveCard(request); //Save and the get the element with ID
         
@@ -51,7 +51,12 @@ public class CardController {
         return ResponseEntity.created(location).body(response); //Created == 201
     }
 
-    @PutMapping("{id}")
+    @GetMapping("cards?_start={start}&_end={end}")
+    public ResponseEntity<List<CardResponse>> printCards(@PathVariable int start, @PathVariable int end){
+        return ResponseEntity.ok(cardService.printCards(start, end));
+    }
+
+    @PutMapping("cards/{id}")
     public ResponseEntity<Void> updateCard(@PathVariable int id, @RequestBody CardRequest request){
         cardService.updateCard(id, request);
         return ResponseEntity.ok().build(); //Return the status code 200, with no content
