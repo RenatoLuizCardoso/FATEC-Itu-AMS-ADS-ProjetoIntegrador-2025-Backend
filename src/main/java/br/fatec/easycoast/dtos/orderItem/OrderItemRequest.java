@@ -59,4 +59,3 @@ public class OrderItemRequest {
         this.orderId = orderId;
     }
 }
-

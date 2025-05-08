@@ -22,11 +22,11 @@ public class OrderItem {
     @ManyToOne
     private Product product;
 
-    //@ManyToMany
-    //private List<Addon> addons;
+    // @ManyToMany
+    // private List<Addon> addons;
 
-    //@ManyToOne
-    //private Order order;
+    // @ManyToOne
+    // private Order order;
 
     // Getters e Setters
     public Integer getId() {
@@ -68,21 +68,21 @@ public class OrderItem {
     public void setProduct(Product product) {
         this.product = product;
     }
-    /* 
-    public List<Addon> getAddons() {
-        return addons;
-    }
-
-    public void setAddons(List<Addon> addons) {
-        this.addons = addons;
-    }
-
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
-    }*/
+    /*
+     * public List<Addon> getAddons() {
+     * return addons;
+     * }
+     * 
+     * public void setAddons(List<Addon> addons) {
+     * this.addons = addons;
+     * }
+     * 
+     * public Order getOrder() {
+     * return order;
+     * }
+     * 
+     * public void setOrder(Order order) {
+     * this.order = order;
+     * }
+     */
 }
-
