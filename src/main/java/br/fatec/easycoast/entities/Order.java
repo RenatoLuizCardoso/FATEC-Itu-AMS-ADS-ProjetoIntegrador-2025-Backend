@@ -1,7 +1,6 @@
 package br.fatec.easycoast.entities;
 
 import jakarta.persistence.*;
-import java.sql.Timestamp;
 //import java.util.List;
 import java.time.Instant;
 
@@ -17,8 +16,8 @@ public class Order {
     private Instant closingTime;
     private Double total;
 
-    // @ManyToOne
-    // private Card card;
+    @ManyToOne
+    private Card card;
 
     @ManyToOne
     private Table table;
