@@ -1,7 +1,6 @@
 package br.fatec.easycoast.services;
 
 import java.util.List;
-import java.util.Locale.Category;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
