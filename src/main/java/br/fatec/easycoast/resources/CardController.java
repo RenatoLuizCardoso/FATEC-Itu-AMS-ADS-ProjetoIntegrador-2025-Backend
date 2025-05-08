@@ -21,7 +21,7 @@ import br.fatec.easycoast.services.CardService;
 
 @RestController
 @CrossOrigin //Needed for the Frontend
-@RequestMapping //Pre sets the URI with cards
+@RequestMapping
 public class CardController {
     @Autowired
     CardService cardService;
@@ -51,7 +51,7 @@ public class CardController {
         return ResponseEntity.created(location).body(response); //Created == 201
     }
 
-    @GetMapping("cards?_start={start}&_end={end}")
+    @GetMapping("cards")
     public ResponseEntity<List<CardResponse>> printCards(@PathVariable int start, @PathVariable int end){
         return ResponseEntity.ok(cardService.printCards(start, end));
     }
