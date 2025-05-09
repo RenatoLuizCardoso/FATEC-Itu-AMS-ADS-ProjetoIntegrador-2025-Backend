@@ -1,7 +1,7 @@
 package br.fatec.easycoast.dtos.seat;
 
 public enum SeatStatus {
-    LIVRE,
-    OCUPADA,
-    DESATIVADA
+    FREE,
+    OCCUPIED,
+    DEACTIVATED
 }

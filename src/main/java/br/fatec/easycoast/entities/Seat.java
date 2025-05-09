@@ -12,12 +12,12 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "TBL_SEAT")
 public class Seat {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     private SeatStatus status;
 
     // Getters and Setters
