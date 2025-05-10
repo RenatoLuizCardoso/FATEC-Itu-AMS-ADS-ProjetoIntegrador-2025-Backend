@@ -1,7 +1,11 @@
 package br.fatec.easycoast.resources;
 
+import java.net.URI;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -9,39 +13,45 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.fatec.easycoast.dtos.orderItem.OrderItemRequest;
 import br.fatec.easycoast.dtos.orderItem.OrderItemResponse;
 import br.fatec.easycoast.services.OrderItemService;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/order-items")
 public class OrderItemController {
 
-    private final OrderItemService orderItemService;
+    @Autowired
+    private OrderItemService orderItemService;
 
-    public OrderItemController(OrderItemService orderItemService) {
-        this.orderItemService = orderItemService;
+    @GetMapping
+    public ResponseEntity<List<OrderItemResponse>> getOrderItems() {
+        return ResponseEntity.ok(orderItemService.getOrderItems());
     }
 
-    @GetMapping("/order/{orderId}")
-    public List<OrderItemResponse> getOrderItems(@PathVariable Integer orderId) {
-        return orderItemService.getOrderItems(orderId);
-    }
-
-    @GetMapping("/{id}")
-    public OrderItemResponse getOrderItem(@PathVariable Integer id) {
-        return orderItemService.getOrderItem(id);
+    @GetMapping("{id}")
+    public ResponseEntity<OrderItemResponse> getOrderItem(@PathVariable Integer id) {
+        return ResponseEntity.ok(orderItemService.getOrderItem(id));
     }
 
     @PostMapping
-    public OrderItemResponse saveOrderItem(@RequestBody OrderItemRequest request) {
-        return orderItemService.saveOrderItem(request);
+    public ResponseEntity<OrderItemResponse> saveOrderItem(@RequestBody OrderItemRequest request) {
+        OrderItemResponse orderItemResponse = orderItemService.saveOrderItem(request);
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("{id}")
+                .buildAndExpand(orderItemResponse.id())
+                .toUri();
+        return ResponseEntity.created(location).body(orderItemResponse);
     }
 
-    @PutMapping("/{id}")
-    public OrderItemResponse updateOrderItem(@PathVariable Integer id, @RequestBody OrderItemRequest request) {
-        return orderItemService.updateOrderItem(id, request);
+    @PutMapping("{id}")
+    public ResponseEntity<OrderItemResponse> updateOrderItem(@PathVariable Integer id,
+            @RequestBody OrderItemRequest request) {
+        orderItemService.updateOrderItem(id, request);
+        return ResponseEntity.ok().build();
     }
 }
-

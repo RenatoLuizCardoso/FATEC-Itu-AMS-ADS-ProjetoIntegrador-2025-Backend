@@ -1,7 +1,9 @@
 package br.fatec.easycoast.dtos.addon;
 
-import br.fatec.easycoast.dtos.item.ItemResponse;
 import br.fatec.easycoast.dtos.addonCategory.AddonCategoryResponse;
+import br.fatec.easycoast.dtos.item.ItemResponse;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 public record AddonResponse(
         Integer id,
@@ -9,5 +11,5 @@ public record AddonResponse(
         Float price,
         Boolean availability,
         ItemResponse item,
-        AddonCategoryResponse addonCategory) {
+        @JsonIgnoreProperties("addons") AddonCategoryResponse addonCategory) {
 }

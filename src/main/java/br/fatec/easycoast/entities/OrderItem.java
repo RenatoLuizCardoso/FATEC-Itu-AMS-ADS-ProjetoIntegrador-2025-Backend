@@ -1,12 +1,18 @@
 package br.fatec.easycoast.entities;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "TBL_ORDERITEM")
 public class OrderItem {
 
     @Id
@@ -20,13 +26,16 @@ public class OrderItem {
     private Double total;
 
     @ManyToOne
+    @JoinColumn(name = "PRODUCT_ID")
     private Product product;
 
-    // @ManyToMany
-    // private List<Addon> addons;
+    @OneToMany
+    @JoinColumn(name = "ADDON_ID")
+    private List<Addon> addons;
 
-    // @ManyToOne
-    // private Order order;
+    @ManyToOne
+    @JoinColumn(name = "ORDER_ID")
+    private Order order;
 
     // Getters e Setters
     public Integer getId() {
@@ -68,21 +77,21 @@ public class OrderItem {
     public void setProduct(Product product) {
         this.product = product;
     }
-    /*
-     * public List<Addon> getAddons() {
-     * return addons;
-     * }
-     * 
-     * public void setAddons(List<Addon> addons) {
-     * this.addons = addons;
-     * }
-     * 
-     * public Order getOrder() {
-     * return order;
-     * }
-     * 
-     * public void setOrder(Order order) {
-     * this.order = order;
-     * }
-     */
+
+    public List<Addon> getAddons() {
+        return addons;
+    }
+
+    public void setAddons(List<Addon> addons) {
+        this.addons = addons;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
 }

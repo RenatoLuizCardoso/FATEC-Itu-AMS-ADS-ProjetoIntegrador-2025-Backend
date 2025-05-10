@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import br.fatec.easycoast.dtos.addon.AddonNoList;
 import br.fatec.easycoast.dtos.addon.AddonRequest;
 import br.fatec.easycoast.dtos.addon.AddonResponse;
 import br.fatec.easycoast.services.AddonService;
@@ -29,16 +28,15 @@ public class AddonController {
     @Autowired
     private AddonService addonService;
 
-    // Adicionei AddonNoList par não dar loop, pois o AddonResponse já está sendo
-    // utilizado para POST.
+ 
     @GetMapping
-    public ResponseEntity<List<AddonNoList>> getAddons() {
+    public ResponseEntity<List<AddonResponse>> getAddons() {
         return ResponseEntity.ok(addonService.getAddons());
     }
 
     // A mesma situação do código acima.
     @GetMapping("{id}")
-    public ResponseEntity<AddonNoList> getAddonById(@PathVariable Integer id) {
+    public ResponseEntity<AddonResponse> getAddonById(@PathVariable Integer id) {
         return ResponseEntity.ok(addonService.getAddonById(id));
     }
 

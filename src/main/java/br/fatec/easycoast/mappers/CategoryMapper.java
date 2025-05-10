@@ -1,6 +1,5 @@
 package br.fatec.easycoast.mappers;
 
-import br.fatec.easycoast.dtos.category.CategoryNoProducts;
 import br.fatec.easycoast.dtos.category.CategoryRequest;
 import br.fatec.easycoast.dtos.category.CategoryResponse;
 import br.fatec.easycoast.entities.Category;
@@ -20,11 +19,7 @@ public class CategoryMapper {
         category.getId(),
         category.getName(),
         category.getAvailability(),
-        category.getProducts() != null ? ProductMapper.getProductNoCategories(category.getProducts()) : null);
+        category.getProducts());
   }
 
-  public static CategoryNoProducts toNoProductsDTO(Category category) {
-    return new CategoryNoProducts(category.getId(), category.getName(), category.getAvailability());
-
-  }
 }

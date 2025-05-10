@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.fatec.easycoast.dtos.addonCategory.AddonCategoryFiltered;
 import br.fatec.easycoast.dtos.addonCategory.AddonCategoryRequest;
 import br.fatec.easycoast.dtos.addonCategory.AddonCategoryResponse;
 import br.fatec.easycoast.entities.AddonCategory;
@@ -19,24 +18,23 @@ public class AddonCategoryService {
     @Autowired
     private AddonCategoryRepository addonCategoryRepository;
 
-    public List<AddonCategoryFiltered> getAddonCategories() {
+    public List<AddonCategoryResponse> getAddonCategoriesByProductId(Integer id) {
+        List<AddonCategory> addonCategories = addonCategoryRepository.findByProductId(id);
+        return addonCategories.stream().map(addonCategory -> AddonCategoryMapper.toDTO(addonCategory)).toList();
+
+    }
+
+    public List<AddonCategoryResponse> getAddonCategories() {
         List<AddonCategory> addonCategories = addonCategoryRepository.findAll();
         return addonCategories.stream()
-                .map(addoncategory -> AddonCategoryMapper.toGetDTO(addoncategory))
+                .map(addoncategory -> AddonCategoryMapper.toDTO(addoncategory))
                 .toList();
     }
 
-    public List<AddonCategoryFiltered> getAddonCategoriesWithProduct(int id) {
-        List<AddonCategory> addonCategories = addonCategoryRepository.findByProductId(id);
-        return addonCategories.stream()
-                .map(addoncategory -> AddonCategoryMapper.toGetDTO(addoncategory))
-                .toList();
-    }
-
-    public AddonCategoryFiltered getAddonCategory(Integer id) {
+    public AddonCategoryResponse getAddonCategory(Integer id) {
         AddonCategory addonCategory = addonCategoryRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Categoria de adicional não encontrado. "));
-        return AddonCategoryMapper.toGetDTO(addonCategory);
+        return AddonCategoryMapper.toDTO(addonCategory);
 
     }
 

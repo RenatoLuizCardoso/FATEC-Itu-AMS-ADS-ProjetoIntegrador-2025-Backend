@@ -4,7 +4,6 @@ import java.util.List;
 
 import br.fatec.easycoast.dtos.item.ItemRequest;
 import br.fatec.easycoast.dtos.item.ItemResponse;
-import br.fatec.easycoast.dtos.item.ItemsOnly;
 import br.fatec.easycoast.entities.Item;
 
 public class ItemMapper {
@@ -21,21 +20,11 @@ public class ItemMapper {
                 item.getSquare() == null ? null : SquareMapper.toDto(item.getSquare()));
     }
 
-    public static List<ItemsOnly> toListDTO(List<Item> items) {
-        List<ItemsOnly> itemOnly = items.stream()
-                .map(item -> toDtoItemsOnly(item))
-                .toList();
-        return itemOnly;
-    }
-
-    public static List<ItemResponse> toListItemResponseDTO(List<Item> items) {
-        List<ItemResponse> itemResponses = items.stream()
+    public static List<ItemResponse> toListDTO(List<Item> items) {
+        List<ItemResponse> itemsResponses = items.stream()
                 .map(item -> toDTO(item))
                 .toList();
-        return itemResponses;
+        return itemsResponses;
     }
 
-    public static ItemsOnly toDtoItemsOnly(Item item) {
-        return new ItemsOnly(item.getId(), item.getName());
-    }
 }

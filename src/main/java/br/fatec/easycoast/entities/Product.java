@@ -2,6 +2,9 @@ package br.fatec.easycoast.entities;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,10 +29,13 @@ public class Product {
 
   @ManyToOne
   @JoinColumn(name = "CATEGORY_ID")
+  @JsonIgnoreProperties("products")
+  @JsonProperty("category")
   private Category category;
 
   private String imageurl;
 
+  @JsonIgnoreProperties("product")
   @OneToMany(mappedBy = "product")
   private List<AddonCategory> addonsCategories;
 

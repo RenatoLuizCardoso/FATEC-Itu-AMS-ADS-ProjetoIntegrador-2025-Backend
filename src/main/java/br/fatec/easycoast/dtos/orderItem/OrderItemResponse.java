@@ -1,71 +1,19 @@
 package br.fatec.easycoast.dtos.orderItem;
 
-import br.fatec.easycoast.dtos.product.ProductResponse;
+import java.util.List;
 
-public class OrderItemResponse {
-    private Integer id;
-    private Integer quantity;
-    private String observations;
-    private Double total;
-    private ProductResponse product;
-    //private List<AddonResponse> addons;
-    private Integer orderId;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-    // Getters e Setters
-    public Integer getId() {
-        return id;
-    }
+import br.fatec.easycoast.entities.Addon;
+import br.fatec.easycoast.entities.Order;
+import br.fatec.easycoast.entities.Product;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
-    public String getObservations() {
-        return observations;
-    }
-
-    public void setObservations(String observations) {
-        this.observations = observations;
-    }
-
-    public Double getTotal() {
-        return total;
-    }
-
-    public void setTotal(Double total) {
-        this.total = total;
-    }
-
-    public ProductResponse getProduct() {
-        return product;
-    }
-
-    public void setProduct(ProductResponse product) {
-        this.product = product;
-    }
-
-    /*public List<AddonResponse> getAddons() {
-        return addons;
-    }
-
-    public void setAddons(List<AddonResponse> addons) {
-        this.addons = addons;
-    }*/
-
-    public Integer getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(Integer orderId) {
-        this.orderId = orderId;
-    }
+public record OrderItemResponse(
+                Integer id,
+                Integer quantity,
+                String observations,
+                Double total,
+                Product product,
+                @JsonIgnoreProperties("product") List<Addon> addons,
+                Order order) {
 }
-

@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.fatec.easycoast.dtos.addon.AddonNoList;
 import br.fatec.easycoast.dtos.addon.AddonRequest;
 import br.fatec.easycoast.dtos.addon.AddonResponse;
 import br.fatec.easycoast.entities.Addon;
@@ -21,18 +20,18 @@ public class AddonService {
 
     // Adicionei AddonNoList par não dar loop, pois o AddonResponse já está sendo
     // utilizado para POST.
-    public List<AddonNoList> getAddons() {
+    public List<AddonResponse> getAddons() {
         List<Addon> addons = addonRepository.findAll();
         return addons.stream()
-                .map(addon -> AddonMapper.toDTONoList(addon))
+                .map(addon -> AddonMapper.toDTO(addon))
                 .toList();
     }
 
     // A mesma situação do código acima.
-    public AddonNoList getAddonById(Integer id) {
+    public AddonResponse getAddonById(Integer id) {
         Addon addon = addonRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Adicional não encontrado"));
-        return AddonMapper.toDTONoList(addon);
+        return AddonMapper.toDTO(addon);
     }
 
     public AddonResponse saveAddon(AddonRequest request) {

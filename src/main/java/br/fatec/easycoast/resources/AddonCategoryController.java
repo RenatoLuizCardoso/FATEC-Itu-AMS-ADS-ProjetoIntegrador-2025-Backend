@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import br.fatec.easycoast.dtos.addonCategory.AddonCategoryFiltered;
 import br.fatec.easycoast.dtos.addonCategory.AddonCategoryRequest;
 import br.fatec.easycoast.dtos.addonCategory.AddonCategoryResponse;
 import br.fatec.easycoast.services.AddonCategoryService;
@@ -30,12 +29,12 @@ public class AddonCategoryController {
     private AddonCategoryService addonCategoryService;
 
     @GetMapping
-    public ResponseEntity<List<AddonCategoryFiltered>> getAddonCategories() {
+    public ResponseEntity<List<AddonCategoryResponse>> getAddonCategories() {
         return ResponseEntity.ok(addonCategoryService.getAddonCategories());
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<AddonCategoryFiltered> getAddonCategory(@PathVariable Integer id) {
+    public ResponseEntity<AddonCategoryResponse> getAddonCategory(@PathVariable Integer id) {
         return ResponseEntity.ok(addonCategoryService.getAddonCategory(id));
     }
 

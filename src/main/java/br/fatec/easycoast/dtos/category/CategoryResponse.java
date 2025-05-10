@@ -2,7 +2,9 @@ package br.fatec.easycoast.dtos.category;
 
 import java.util.List;
 
-import br.fatec.easycoast.dtos.product.ProductNoCategory;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import br.fatec.easycoast.entities.Product;
 
 //Modificado para retornar Product mas sem Category para não dar loop e ficar redundante. 
 public record CategoryResponse(
@@ -10,6 +12,6 @@ public record CategoryResponse(
         Integer id,
         String name,
         Boolean availability,
-        List<ProductNoCategory> products) {
+        @JsonIgnoreProperties("category") List<Product> products) {
 
 }
