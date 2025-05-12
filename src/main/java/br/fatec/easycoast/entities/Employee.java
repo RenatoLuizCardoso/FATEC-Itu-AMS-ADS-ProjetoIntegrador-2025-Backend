@@ -1,6 +1,6 @@
 package br.fatec.easycoast.entities;
 
-import br.fatec.easycoast.dtos.user.UserProfile;
+import br.fatec.easycoast.dtos.employee.Profile;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -8,22 +8,24 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "TBL_USERS")
-public class User {
+@Table(name = "TBL_EMPLOYEE")
+public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     private String name;
+    private String phone;
     private String login;
     private String password;
-    private UserProfile profile;
+    private Profile profile;
+    private Boolean blocked;
 
     // Getters e Setters
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -51,11 +53,28 @@ public class User {
         this.password = password;
     }
 
-    public UserProfile getProfile() {
+    public Profile getProfile() {
         return profile;
     }
 
-    public void setProfile(UserProfile profile) {
+    public void setProfile(Profile profile) {
         this.profile = profile;
     }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public Boolean getBlocked() {
+        return blocked;
+    }
+
+    public void setBlocked(Boolean blocked) {
+        this.blocked = blocked;
+    }
+
 }

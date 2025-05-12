@@ -1,7 +1,8 @@
 package br.fatec.easycoast.dtos.card;
 
 public record CardRequest(
-        Boolean active,
-        Integer copy) {
+    Boolean active,
+    Integer copy
+) {
 
 }

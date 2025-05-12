@@ -10,7 +10,6 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "TBL_CARDS")
 public class Card {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -21,8 +20,7 @@ public class Card {
     @Column(nullable = false)
     private Integer copy;
 
-    public Card() {
-    }
+    public Card() { }
 
     public Card(Integer id, Boolean active, Integer copy) {
         this.id = id;
@@ -53,5 +51,4 @@ public class Card {
     public void setCopy(Integer copy) {
         this.copy = copy;
     }
-
 }
