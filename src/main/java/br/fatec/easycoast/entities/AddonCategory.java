@@ -33,6 +33,7 @@ public class AddonCategory {
     @Enumerated(EnumType.ORDINAL)
     private AddonType type;
 
+    @JsonIgnoreProperties("addonCategories")
     @ManyToOne
     @JoinColumn(name = "PRODUCT_ID")
     private Product product;
