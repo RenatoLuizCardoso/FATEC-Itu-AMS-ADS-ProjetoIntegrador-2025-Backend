@@ -45,6 +45,12 @@ public class AddonCategory {
     public AddonCategory() {
     }
 
+    public AddonCategory(Integer id, String name, AddonType type) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+    }
+
     public AddonCategory(Integer id, String name, AddonType type, List<Addon> addons) {
         this.id = id;
         this.name = name;

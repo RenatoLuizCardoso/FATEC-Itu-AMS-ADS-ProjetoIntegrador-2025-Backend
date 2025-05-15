@@ -20,7 +20,7 @@ public class AddonCategoryMapper {
                 addonCategory.getId(),
                 addonCategory.getName(),
                 addonCategory.getType(),
-                ProductMapper.toDTO(addonCategory.getProduct()),
+                addonCategory.getProduct() != null ? ProductMapper.toDTO(addonCategory.getProduct()) : null,
                 addonCategory.getAddons()
 
         );

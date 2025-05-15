@@ -38,6 +38,15 @@ public class Addon {
     public Addon() {
     }
 
+    public Addon(Integer id, String name, Float price, Boolean availability, Item item, AddonCategory addonCategory) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.availability = availability;
+        this.item = item;
+        this.addonCategory = addonCategory;
+    }
+
     public Integer getId() {
         return id;
     }

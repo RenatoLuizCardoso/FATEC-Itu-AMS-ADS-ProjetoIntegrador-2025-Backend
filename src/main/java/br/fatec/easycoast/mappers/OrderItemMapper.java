@@ -17,16 +17,20 @@ public class OrderItemMapper {
 
     }
 
-    public static OrderItemResponse toDTO(OrderItem orderItem) {
+    public static OrderItemResponse toDTO(OrderItem orderItem, Boolean isPost) {
 
         return new OrderItemResponse(
                 orderItem.getId(),
                 orderItem.getQuantity(),
                 orderItem.getObservations(),
                 orderItem.getTotal(),
-                orderItem.getProduct(),
-                orderItem.getAddons(),
+                ProductMapper.toDTO(orderItem.getProduct()),
+                AddonMapper.toListDTO(orderItem.getAddons(), isPost),
                 orderItem.getOrder());
+    }
+
+    public static OrderItemResponse toDTO(OrderItem orderItem) {
+        return toDTO(orderItem, null);
     }
 
 }

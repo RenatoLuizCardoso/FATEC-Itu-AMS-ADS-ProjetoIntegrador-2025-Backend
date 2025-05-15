@@ -49,25 +49,34 @@ public class OrderItemService {
         } else {
             OrderItem orderItem = orderItemRepository.save(OrderItemMapper.toEntity(request));
 
-            return OrderItemMapper.toDTO(orderItem);
+            return OrderItemMapper.toDTO(orderItem, true);
 
         }
 
     }
 
     public void updateOrderItem(Integer id, OrderItemRequest request) {
-        try {
-            OrderItem orderItem = orderItemRepository.getReferenceById(id);
-            orderItem.setQuantity(request.quantity());
-            orderItem.setObservations(request.observations());
-            orderItem.setTotal(request.total());
-            orderItem.setProduct(request.product());
-            orderItem.setAddons(request.addons());
-            orderItem.setOrder(request.order());
-            orderItemRepository.save(orderItem);
 
-        } catch (EntityNotFoundException e) {
-            throw new EntityNotFoundException("Not found Order Item.");
+        List<Integer> addonIds = request.addons().stream().map(Addon::getId).toList();
+        int addonNumber = addonRepository.findAddonIfexists(addonIds, request.product().getId());
+        if (addonNumber > 0) {
+            throw new EntityNotFoundException("Addon incorrect");
+        } else {
+
+            try {
+                OrderItem orderItem = orderItemRepository.getReferenceById(id);
+                orderItem.setQuantity(request.quantity());
+                orderItem.setObservations(request.observations());
+                orderItem.setTotal(request.total());
+                orderItem.setProduct(request.product());
+                orderItem.setAddons(request.addons());
+                orderItem.setOrder(request.order());
+                orderItemRepository.save(orderItem);
+
+            } catch (EntityNotFoundException e) {
+                throw new EntityNotFoundException("Not found Order Item.");
+            }
+
         }
 
     }

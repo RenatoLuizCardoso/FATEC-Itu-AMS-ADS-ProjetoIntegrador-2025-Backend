@@ -7,8 +7,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -29,8 +29,7 @@ public class OrderItem {
     @JoinColumn(name = "PRODUCT_ID")
     private Product product;
 
-    @OneToMany
-    @JoinColumn(name = "ADDON_ID")
+    @ManyToMany
     private List<Addon> addons;
 
     @ManyToOne

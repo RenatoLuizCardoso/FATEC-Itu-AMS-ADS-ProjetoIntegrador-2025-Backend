@@ -16,8 +16,10 @@ public class ItemMapper {
     }
 
     public static ItemResponse toDTO(Item item) {
-        return new ItemResponse(item.getId(), item.getName(),
-                item.getSquare() == null ? null : SquareMapper.toDto(item.getSquare()));
+        return new ItemResponse(
+                item.getId(),
+                item.getName(),
+                SquareMapper.toDto(item.getSquare()));
     }
 
     public static List<ItemResponse> toListDTO(List<Item> items) {
