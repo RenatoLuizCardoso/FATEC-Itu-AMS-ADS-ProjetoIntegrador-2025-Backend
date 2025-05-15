@@ -7,6 +7,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import br.fatec.easycoast.dtos.item.ItemResponse;
 import jakarta.persistence.Column;
 
@@ -20,6 +23,7 @@ public class Item {
     @Column(nullable = false)
     private String name;
 
+    @JsonIgnoreProperties("items")
     @ManyToOne
     @JoinColumn(name = "SQUARE_ID", nullable = true)
     private Square square;
@@ -60,8 +64,8 @@ public class Item {
 
     // Aqui o square vai enviar a cópia dele mesmo só que filtrado para
     // SquareResponse.
-    public ItemResponse getItemResponse() {
-        return new ItemResponse(id, name, square.getSquareResponse());
+    // public ItemResponse getItemResponse() {
+    // return new ItemResponse(id, name, square.getSquareResponse());
 
-    }
+    // }
 }

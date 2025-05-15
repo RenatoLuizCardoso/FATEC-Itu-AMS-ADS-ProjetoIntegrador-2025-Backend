@@ -14,12 +14,9 @@ import jakarta.persistence.Table;
 
 import java.util.List;
 
-import br.fatec.easycoast.dtos.addonCategory.AddonCategoryFiltered;
-import br.fatec.easycoast.dtos.addonCategory.AddonCategoryProductFiltered;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import br.fatec.easycoast.dtos.addonCategory.AddonType;
-import br.fatec.easycoast.dtos.product.ProductFiltered;
-import br.fatec.easycoast.mappers.AddonMapper;
-import br.fatec.easycoast.mappers.ProductMapper;
 
 @Entity
 @Table(name = "TBL_ADDONCATEGORY")
@@ -36,14 +33,22 @@ public class AddonCategory {
     @Enumerated(EnumType.ORDINAL)
     private AddonType type;
 
+    @JsonIgnoreProperties("addonCategories")
     @ManyToOne
     @JoinColumn(name = "PRODUCT_ID")
     private Product product;
 
+    @JsonIgnoreProperties("addonCategory")
     @OneToMany(mappedBy = "addonCategory")
     private List<Addon> addons;
 
     public AddonCategory() {
+    }
+
+    public AddonCategory(Integer id, String name, AddonType type) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
     }
 
     public AddonCategory(Integer id, String name, AddonType type, List<Addon> addons) {
@@ -77,10 +82,6 @@ public class AddonCategory {
         this.type = type;
     }
 
-    public ProductFiltered getProductFiltered() {
-        return ProductMapper.getProductFiltered(product);
-    }
-
     public Product getProduct() {
         return product;
     }
@@ -91,30 +92,6 @@ public class AddonCategory {
 
     public List<Addon> getAddons() {
         return addons;
-    }
-
-    // Método utilizado para conseguir o GET na hora de consultar somente o
-    // AddonCategory
-    public AddonCategoryFiltered getaAddonCategoryFiltered() {
-        return new AddonCategoryFiltered(
-                id,
-                name,
-                type,
-                ProductMapper.getProductFiltered(product),
-                AddonMapper.getAddonFiltered(addons));
-    }
-
-    public AddonCategoryFiltered getAddonCategoryFiltered() {
-        return new AddonCategoryFiltered(
-                id,
-                name,
-                type,
-                ProductMapper.getProductFiltered(product),
-                AddonMapper.getAddonFiltered(addons));
-    }
-
-    public AddonCategoryProductFiltered getAddonCategoryProductFiltered() {
-        return new AddonCategoryProductFiltered(id, name, type, getProductFiltered(), addons);
     }
 
     public void setAddons(List<Addon> addons) {
