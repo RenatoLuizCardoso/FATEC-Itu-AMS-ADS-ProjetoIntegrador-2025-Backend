@@ -2,6 +2,9 @@ package br.fatec.easycoast.entities;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,7 +24,9 @@ public class Category {
   private Boolean availability;
 
   @OneToMany(mappedBy = "category")
-  private List<Product> product;
+  @JsonIgnoreProperties("category")
+  @JsonProperty("products")
+  private List<Product> products;
 
   public Integer getId() {
     return id;
@@ -48,11 +53,11 @@ public class Category {
   }
 
   public List<Product> getProducts() {
-    return product;
+    return products;
   }
 
-  public void setProducts(List<Product> product) {
-    this.product = product;
+  public void setProducts(List<Product> products) {
+    this.products = products;
   }
 
 }

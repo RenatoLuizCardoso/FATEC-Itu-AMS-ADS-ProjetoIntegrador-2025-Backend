@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.fatec.easycoast.dtos.product.ProductAddonCategoryFiltered;
 import br.fatec.easycoast.dtos.product.ProductRequest;
 import br.fatec.easycoast.dtos.product.ProductResponse;
 import br.fatec.easycoast.entities.Product;
@@ -19,13 +18,13 @@ public class ProductService {
   @Autowired
   private ProductRepository repository;
 
-  public ProductAddonCategoryFiltered getProductById(int id) {
+  public ProductResponse getProductById(int id) {
     return ProductMapper
-        .toDTOFiltered(repository.findById(id).orElseThrow(() -> (new EntityNotFoundException("Product not found"))));
+        .toDTO(repository.findById(id).orElseThrow(() -> (new EntityNotFoundException("Product not found"))));
   }
 
-  public List<ProductAddonCategoryFiltered> getProducts() {
-    return repository.findAll().stream().map(item -> ProductMapper.toDTOFiltered(item)).toList();
+  public List<ProductResponse> getProducts() {
+    return repository.findAll().stream().map(item -> ProductMapper.toDTO(item)).toList();
   }
 
   public ProductResponse saveProduct(ProductRequest request) {

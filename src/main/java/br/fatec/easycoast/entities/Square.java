@@ -1,10 +1,10 @@
 package br.fatec.easycoast.entities;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import br.fatec.easycoast.dtos.item.ItemsOnly;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import br.fatec.easycoast.dtos.square.SquareResponse;
-import br.fatec.easycoast.mappers.ItemMapper;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,6 +23,7 @@ public class Square {
     @Column(nullable = false)
     private String name;
 
+    @JsonIgnoreProperties("square")
     @OneToMany(mappedBy = "square")
     private List<Item> items;
 
@@ -61,11 +62,12 @@ public class Square {
         this.name = name;
     }
 
-    public List<ItemsOnly> getItems() {
-        return this.items.stream().map(s -> ItemMapper.toDtoItemsOnly(s)).collect(Collectors.toList());
+    public List<Item> getItems() {
+        return items;
     }
 
-    public SquareResponse getSquareResponse() {
-        return new SquareResponse(getId(), getName());
+    public void setItems(List<Item> items) {
+        this.items = items;
     }
+
 }

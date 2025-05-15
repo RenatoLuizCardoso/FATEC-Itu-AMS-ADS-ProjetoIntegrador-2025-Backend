@@ -16,8 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import br.fatec.easycoast.dtos.addonCategory.AddonCategoryFiltered;
-import br.fatec.easycoast.dtos.product.ProductAddonCategoryFiltered;
+import br.fatec.easycoast.dtos.addonCategory.AddonCategoryResponse;
 import br.fatec.easycoast.dtos.product.ProductRequest;
 import br.fatec.easycoast.dtos.product.ProductResponse;
 import br.fatec.easycoast.services.AddonCategoryService;
@@ -36,17 +35,17 @@ public class ProductController {
   private AddonCategoryService addonCategoryService;
 
   @GetMapping("{id}")
-  public ResponseEntity<ProductAddonCategoryFiltered> getProductById(@PathVariable int id) {
+  public ResponseEntity<ProductResponse> getProductById(@PathVariable int id) {
     return ResponseEntity.ok(productService.getProductById(id));
   }
 
   @GetMapping("{id}/addonCategories")
-  public ResponseEntity<List<AddonCategoryFiltered>> getAddonCategoriesWithProductId(@PathVariable int id) {
-    return ResponseEntity.ok(addonCategoryService.getAddonCategoriesWithProduct(id));
+  public ResponseEntity<List<AddonCategoryResponse>> getAddonCategoriesWithProductId(@PathVariable int id) {
+    return ResponseEntity.ok(addonCategoryService.getAddonCategoriesByProductId(id));
   }
 
   @GetMapping
-  public ResponseEntity<List<ProductAddonCategoryFiltered>> getProducts() {
+  public ResponseEntity<List<ProductResponse>> getProducts() {
     return ResponseEntity.ok(productService.getProducts());
   }
 
