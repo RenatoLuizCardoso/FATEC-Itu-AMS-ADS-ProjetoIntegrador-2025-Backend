@@ -28,7 +28,7 @@ public class OrderMapper {
                 order.getCard(),
                 order.getSeat(),
                 order.getEmployee(),
-                order.getOrderItems());
+                OrderItemMapper.toListDTO(order.getOrderItems()));
     }
 
 }
