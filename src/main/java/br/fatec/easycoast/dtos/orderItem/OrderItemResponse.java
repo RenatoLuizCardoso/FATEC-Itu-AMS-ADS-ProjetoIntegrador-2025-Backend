@@ -11,11 +11,11 @@ import br.fatec.easycoast.entities.Order;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public record OrderItemResponse(
-                Integer id,
-                Integer quantity,
-                String observations,
-                Double total,
-                @JsonIgnoreProperties("addonCategories") ProductResponse product,
-                List<AddonResponse> addons,
-                Order order) {
+        Integer id,
+        Integer quantity,
+        String observations,
+        Double total,
+        @JsonIgnoreProperties("addonCategories") ProductResponse product,
+        List<AddonResponse> addons,
+        @JsonIgnoreProperties("orderItems") Order order) {
 }

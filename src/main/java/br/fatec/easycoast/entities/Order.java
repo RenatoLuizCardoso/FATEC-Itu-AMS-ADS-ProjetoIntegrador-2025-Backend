@@ -1,11 +1,20 @@
 package br.fatec.easycoast.entities;
 
-import jakarta.persistence.*;
-//import java.util.List;
+import java.util.List;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+
 import java.time.Instant;
 
 @Entity
-@Table(name = "orders")
+@Table(name = "TBL_ORDER")
 public class Order {
 
     @Id
@@ -17,16 +26,19 @@ public class Order {
     private Double total;
 
     @ManyToOne
+    @JoinColumn(name = "CARD_ID")
     private Card card;
 
     @ManyToOne
-    private Table table;
+    @JoinColumn(name = "SEAT_ID")
+    private Seat seat;
 
-    // @ManyToOne
-    // private Employee employee;
+    @ManyToOne
+    @JoinColumn(name = "EMPLOYEE_ID")
+    private Employee employee;
 
-    // @OneToMany(mappedBy = "order")
-    // private List<OrderItem> orderItems;
+    @OneToMany(mappedBy = "order")
+    private List<OrderItem> orderItems;
 
     // Getters and Setters
     public Integer getId() {
@@ -61,39 +73,36 @@ public class Order {
         this.total = total;
     }
 
-    // public Card getCard() {
-    // return card;
-    // }
-
-    /*
-     * public void setCard(Card card) {
-     * this.card = card;
-     * }
-     */
-
-    public Table getTable() {
-        return table;
+    public Card getCard() {
+        return card;
     }
 
-    public void setTable(Table table) {
-        this.table = table;
+    public void setCard(Card card) {
+        this.card = card;
     }
 
-    /*
-     * public Employee getEmployee() {
-     * return employee;
-     * }
-     * 
-     * public void setEmployee(Employee employee) {
-     * this.employee = employee;
-     * }
-     * 
-     * public List<OrderItem> getOrderItems() {
-     * return orderItems;
-     * }
-     * 
-     * public void setOrderItems(List<OrderItem> orderItems) {
-     * this.orderItems = orderItems;
-     * }
-     */
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
+    }
+
+    public Seat getSeat() {
+        return seat;
+    }
+
+    public void setSeat(Seat seat) {
+        this.seat = seat;
+    }
+
 }
