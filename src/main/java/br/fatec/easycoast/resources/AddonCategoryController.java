@@ -22,7 +22,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @CrossOrigin
-@RequestMapping("addoncategories")
+@RequestMapping("addon-categories")
 public class AddonCategoryController {
 
     @Autowired
