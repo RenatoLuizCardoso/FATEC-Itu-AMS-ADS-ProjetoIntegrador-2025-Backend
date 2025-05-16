@@ -21,7 +21,7 @@ import br.fatec.easycoast.services.OrderItemService;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/order-items")
+@RequestMapping("order-items")
 public class OrderItemController {
 
     @Autowired
