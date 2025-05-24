@@ -1,6 +1,6 @@
 package br.fatec.easycoast.entities;
 
-import java.sql.Timestamp;
+import java.time.Instant;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -20,7 +20,7 @@ public class Scheduling {
     private Integer id;
 
     @Column(name = "starts_at", nullable = false)
-    private Timestamp startsAt;
+    private Instant startsAt;
 
     @Column(nullable = false)
     private Integer quantity;
@@ -29,18 +29,19 @@ public class Scheduling {
     @JoinColumn(name = "CUSTOMER_ID", nullable = false)
     private Customer customer;
 
-    //@ManyToOne
-    //@JoinColumn(name = "SEAT_ID", nullable = true)
-    //private Seat seat;
+    @ManyToOne
+    @JoinColumn(name = "SEAT_ID", nullable = true)
+    private Seat seat;
 
-    public Scheduling() {}
+    public Scheduling() {
+    }
 
-    public Scheduling(Integer id, Timestamp startsAt, Integer quantity, Customer customer /*, Seat seat */) {
+    public Scheduling(Integer id, Instant startsAt, Integer quantity, Customer customer, Seat seat) {
         this.id = id;
         this.startsAt = startsAt;
         this.quantity = quantity;
         this.customer = customer;
-        // this.seat = seat;
+        this.seat = seat;
     }
 
     public Integer getId() {
@@ -51,11 +52,11 @@ public class Scheduling {
         this.id = id;
     }
 
-    public Timestamp getStartsAt() {
+    public Instant getStartsAt() {
         return startsAt;
     }
 
-    public void setStartsAt(Timestamp startsAt) {
+    public void setStartsAt(Instant startsAt) {
         this.startsAt = startsAt;
     }
 
@@ -75,7 +76,6 @@ public class Scheduling {
         this.customer = customer;
     }
 
-    /*
     public Seat getSeat() {
         return seat;
     }
@@ -83,5 +83,5 @@ public class Scheduling {
     public void setSeat(Seat seat) {
         this.seat = seat;
     }
-    */
+
 }
