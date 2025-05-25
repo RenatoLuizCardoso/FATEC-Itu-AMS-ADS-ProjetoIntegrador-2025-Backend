@@ -68,6 +68,25 @@ public class SchedulingService {
     public SchedulingResponse updateScheduling(Integer id, SchedulingRequest request) {
         Scheduling scheduling = schedulingRepository.getReferenceById(id);
 
+        schedulingRepository
+                .findByStartsAtAndSeatId(
+                        request.startsAt(),
+                        request.seat().getId())
+                .ifPresent(s -> {
+                    throw new IllegalStateException("The seat is occupied.");
+                });
+
+        List<Scheduling> list = schedulingRepository.findByCustomerId(request.customer().getId());
+
+        for (Scheduling schedule : list) {
+            Instant startLimit = schedule.getStartsAt().minus(1, ChronoUnit.HOURS);
+            Instant endLimit = schedule.getStartsAt().plus(1, ChronoUnit.HOURS);
+            if (!request.startsAt().isBefore(startLimit) && !request.startsAt().isAfter(endLimit)
+                    && schedule.getId() != id) {
+                throw new IllegalStateException("Não pode ser feito a reserva devido ao limite.");
+            }
+        }
+
         scheduling.setStartsAt(request.startsAt());
         scheduling.setQuantity(request.quantity());
         scheduling.setCustomer(request.customer());
