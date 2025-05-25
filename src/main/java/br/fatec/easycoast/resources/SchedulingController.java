@@ -25,18 +25,14 @@ import br.fatec.easycoast.services.SchedulingService;
 public class SchedulingController {
 
     @Autowired
-    private final SchedulingService schedulingService;
-
-    public SchedulingController(SchedulingService schedulingService) {
-        this.schedulingService = schedulingService;
-    }
+    private SchedulingService schedulingService;
 
     @GetMapping
     public ResponseEntity<List<SchedulingResponse>> getAll() {
         return ResponseEntity.ok(schedulingService.getSchedules());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("{id}")
     public ResponseEntity<SchedulingResponse> getOne(@PathVariable Integer id) {
         return ResponseEntity.ok(schedulingService.getScheduling(id));
     }
@@ -46,15 +42,15 @@ public class SchedulingController {
         SchedulingResponse scheduling = schedulingService.saveScheduling(request);
 
         URI location = ServletUriComponentsBuilder
-                       .fromCurrentRequest()
-                       .path("/{id}")
-                       .buildAndExpand(scheduling.id()) 
-                       .toUri();
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(scheduling.id())
+                .toUri();
 
         return ResponseEntity.created(location).body(scheduling);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("{id}")
     public ResponseEntity<Void> update(@PathVariable Integer id, @RequestBody SchedulingRequest request) {
         schedulingService.updateScheduling(id, request);
         return ResponseEntity.ok().build();

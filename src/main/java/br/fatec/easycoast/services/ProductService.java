@@ -45,7 +45,6 @@ public class ProductService {
 
     repository.save(temp);
 
-    System.out.println(temp.getAddonsCategories());
   }
 
   public void deleteProduct(int id) {
