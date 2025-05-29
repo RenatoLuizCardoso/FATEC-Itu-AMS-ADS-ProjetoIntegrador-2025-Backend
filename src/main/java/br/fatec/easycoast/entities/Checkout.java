@@ -13,30 +13,28 @@ import jakarta.persistence.FetchType;
 import java.time.Instant;
 
 @Entity
-@Table(name = "checkouts")
+@Table(name = "TBL_CHECKOUT")
 public class Checkout {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "opening_date", nullable = false)
+    @Column(name = "OPENING_DATE", nullable = false)
     private Instant openingDate;
 
-    @Column(name = "closing_date")
+    @Column(name = "CLOSING_DATE")
     private Instant closingDate;
 
-    @Column(name = "entry_amount", nullable = false)
+    @Column(name = "ENTRY_AMOUNT", nullable = false)
     private double entryAmount;
 
-    @Column(name = "exit_amount", nullable = false)
+    @Column(name = "EXIT_AMOUNT", nullable = false)
     private double exitAmount;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "employee_id", nullable = false)
+    @JoinColumn(name = "EMPLOYEE_ID", nullable = false)
     private Employee employee;
-
-    // Getters and Setters
 
     public Integer getId() {
         return id;
