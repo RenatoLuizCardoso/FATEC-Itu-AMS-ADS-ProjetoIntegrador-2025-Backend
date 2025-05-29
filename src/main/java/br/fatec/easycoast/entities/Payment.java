@@ -2,7 +2,7 @@ package br.fatec.easycoast.entities;
 
 import jakarta.persistence.*;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 import br.fatec.easycoast.dtos.payment.PaymentMethod;
 import br.fatec.easycoast.dtos.payment.PaymentStatus;
@@ -20,7 +20,7 @@ public class Payment {
     @Enumerated(EnumType.STRING)
     private PaymentMethod methodPayment;
 
-    private LocalDateTime date;
+    private Instant date;
 
     @Enumerated(EnumType.STRING)
     private PaymentStatus status;
@@ -29,53 +29,21 @@ public class Payment {
     @JoinColumn(name = "order_id", nullable = false)
     private Order order;
 
-    // Getters and Setters
+    public Integer getId() { return id; }
+    public void setId(Integer id) { this.id = id; }
 
-    public Integer getId() {
-        return id;
-    }
+    public Double getValue() { return value; }
+    public void setValue(Double value) { this.value = value; }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    public PaymentMethod getMethodPayment() { return methodPayment; }
+    public void setMethodPayment(PaymentMethod methodPayment) { this.methodPayment = methodPayment; }
 
-    public Double getValue() {
-        return value;
-    }
+    public Instant getDate() { return date; }
+    public void setDate(Instant date) { this.date = date; }
 
-    public void setValue(Double value) {
-        this.value = value;
-    }
+    public PaymentStatus getStatus() { return status; }
+    public void setStatus(PaymentStatus status) { this.status = status; }
 
-    public PaymentMethod getMethodPayment() {
-        return methodPayment;
-    }
-
-    public void setMethodPayment(PaymentMethod methodPayment) {
-        this.methodPayment = methodPayment;
-    }
-
-    public LocalDateTime getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDateTime date) {
-        this.date = date;
-    }
-
-    public PaymentStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(PaymentStatus status) {
-        this.status = status;
-    }
-
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
-    }
+    public Order getOrder() { return order; }
+    public void setOrder(Order order) { this.order = order; }
 }

@@ -1,12 +1,12 @@
 package br.fatec.easycoast.dtos.payment;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 public record PaymentResponse(
     Integer id,
     Double value,
     PaymentMethod methodPayment,
-    LocalDateTime date,
+    Instant date,
     PaymentStatus status,
     Integer orderId
 ) {}
