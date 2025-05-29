@@ -1,6 +1,14 @@
 package br.fatec.easycoast.entities;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
 
 import java.time.Instant;
 
@@ -29,21 +37,51 @@ public class Payment {
     @JoinColumn(name = "order_id", nullable = false)
     private Order order;
 
-    public Integer getId() { return id; }
-    public void setId(Integer id) { this.id = id; }
+    public Integer getId() {
+        return id;
+    }
 
-    public Double getValue() { return value; }
-    public void setValue(Double value) { this.value = value; }
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-    public PaymentMethod getMethodPayment() { return methodPayment; }
-    public void setMethodPayment(PaymentMethod methodPayment) { this.methodPayment = methodPayment; }
+    public Double getValue() {
+        return value;
+    }
 
-    public Instant getDate() { return date; }
-    public void setDate(Instant date) { this.date = date; }
+    public void setValue(Double value) {
+        this.value = value;
+    }
 
-    public PaymentStatus getStatus() { return status; }
-    public void setStatus(PaymentStatus status) { this.status = status; }
+    public PaymentMethod getMethodPayment() {
+        return methodPayment;
+    }
 
-    public Order getOrder() { return order; }
-    public void setOrder(Order order) { this.order = order; }
+    public void setMethodPayment(PaymentMethod methodPayment) {
+        this.methodPayment = methodPayment;
+    }
+
+    public Instant getDate() {
+        return date;
+    }
+
+    public void setDate(Instant date) {
+        this.date = date;
+    }
+
+    public PaymentStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(PaymentStatus status) {
+        this.status = status;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
 }
