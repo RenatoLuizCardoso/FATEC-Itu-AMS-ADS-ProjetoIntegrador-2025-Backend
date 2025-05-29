@@ -11,7 +11,6 @@ public class OrderItemMapper {
         OrderItem orderItem = new OrderItem();
         orderItem.setQuantity(request.quantity());
         orderItem.setObservations(request.observations());
-        orderItem.setTotal(request.total());
         orderItem.setProduct(request.product());
         orderItem.setAddons(request.addons());
         orderItem.setOrder(request.order());

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import br.fatec.easycoast.dtos.order.OrderRequest;
 import br.fatec.easycoast.dtos.order.OrderResponse;
 import br.fatec.easycoast.entities.Order;
+import br.fatec.easycoast.entities.OrderItem;
 import br.fatec.easycoast.mappers.OrderMapper;
 import br.fatec.easycoast.repositories.OrderRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -34,7 +35,13 @@ public class OrderService {
     }
 
     public OrderResponse saveOrder(OrderRequest request) {
-        return OrderMapper.toDTO(orderRepository.save(OrderMapper.toEntity(request)));
+        Order order = OrderMapper.toEntity(request);
+
+        //Calculating the total, by the sum of the items' total
+        double total = order.getOrderItems().stream().mapToDouble(OrderItem::getTotal).sum();
+        order.setTotal(total);
+
+        return OrderMapper.toDTO(orderRepository.save(order));
     }
 
     public OrderResponse updateOrder(Integer id, OrderRequest request) {
@@ -45,11 +52,15 @@ public class OrderService {
             // Atualiza os campos do pedido
             order.setOpeningTime(request.openingTime());
             order.setClosingTime(request.closingTime());
-            order.setTotal(request.total());
             order.setCard(request.card());
             order.setSeat(request.seat());
             order.setEmployee(request.employee());
             order.setOrderItems(request.orderItems());
+
+            //Calculating the total, by the sum of the items' total
+            double total = order.getOrderItems().stream().mapToDouble(OrderItem::getTotal).sum();
+            order.setTotal(total);
+
             orderRepository.save(order);
             return OrderMapper.toDTO(order);
         } catch (EntityNotFoundException e) {

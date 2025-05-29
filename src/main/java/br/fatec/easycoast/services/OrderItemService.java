@@ -47,9 +47,14 @@ public class OrderItemService {
         if (addonNumber > 0) {
             throw new EntityNotFoundException("Addon incorrect");
         } else {
-            OrderItem orderItem = orderItemRepository.save(OrderItemMapper.toEntity(request));
+            OrderItem orderItem = OrderItemMapper.toEntity(request);
 
-            return OrderItemMapper.toDTO(orderItem, true);
+            //Calculating the total, by the sum of the price of the addons, and multipling the price of the product with the quantity
+            double total = orderItem.getAddons().stream().mapToDouble(Addon::getPrice).sum();
+            total += orderItem.getProduct().getPrice() * orderItem.getQuantity();
+            orderItem.setTotal(total);
+
+            return OrderItemMapper.toDTO(orderItemRepository.save(orderItem), true);
 
         }
 
@@ -67,10 +72,14 @@ public class OrderItemService {
                 OrderItem orderItem = orderItemRepository.getReferenceById(id);
                 orderItem.setQuantity(request.quantity());
                 orderItem.setObservations(request.observations());
-                orderItem.setTotal(request.total());
                 orderItem.setProduct(request.product());
                 orderItem.setAddons(request.addons());
                 orderItem.setOrder(request.order());
+
+                double total = orderItem.getAddons().stream().mapToDouble(Addon::getPrice).sum();
+                total += orderItem.getProduct().getPrice() * orderItem.getQuantity();
+                orderItem.setTotal(total);
+
                 orderItemRepository.save(orderItem);
 
             } catch (EntityNotFoundException e) {

@@ -10,7 +10,6 @@ public class OrderMapper {
         Order order = new Order();
         order.setOpeningTime(request.openingTime());
         order.setClosingTime(request.closingTime());
-        order.setTotal(request.total());
         order.setCard(request.card());
         order.setSeat(request.seat());
         order.setEmployee(request.employee());
