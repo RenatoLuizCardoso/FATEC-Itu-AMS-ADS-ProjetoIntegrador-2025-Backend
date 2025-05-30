@@ -23,6 +23,12 @@ public class OrderItemService {
     @Autowired
     private AddonRepository addonRepository;
 
+    @Autowired
+    private AddonService addonService;
+
+    @Autowired
+    private ProductService productService;
+
     public List<OrderItemResponse> getOrderItems() {
         List<OrderItemResponse> orderItemsResponse = orderItemRepository
                 .findAll()
@@ -49,9 +55,13 @@ public class OrderItemService {
         } else {
             OrderItem orderItem = OrderItemMapper.toEntity(request);
 
-            //Calculating the total, by the sum of the price of the addons, and multipling the price of the product with the quantity
-            double total = orderItem.getAddons().stream().mapToDouble(Addon::getPrice).sum();
-            total += orderItem.getProduct().getPrice() * orderItem.getQuantity();
+            // Calculating the total, by the sum of the price of the addons, and multipling
+            // the price of the product with the quantity
+            double total = orderItem.getAddons().stream()
+                    .mapToDouble(addon -> addonService.getAddonById(addon.getId()).price()).sum();
+            
+            
+            total += productService.getProductById(orderItem.getProduct().getId()).price() * orderItem.getQuantity();
             orderItem.setTotal(total);
 
             return OrderItemMapper.toDTO(orderItemRepository.save(orderItem), true);
