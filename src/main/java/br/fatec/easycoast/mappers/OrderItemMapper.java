@@ -25,8 +25,8 @@ public class OrderItemMapper {
                 orderItem.getQuantity(),
                 orderItem.getObservations(),
                 orderItem.getTotal(),
-                ProductMapper.toDTO(orderItem.getProduct()),
-                AddonMapper.toListDTO(orderItem.getAddons(), isPost),
+                orderItem.getProduct() != null?  ProductMapper.toDTO(orderItem.getProduct()) : null,
+                orderItem.getAddons() != null?  AddonMapper.toListDTO(orderItem.getAddons(), isPost) : null,
                 orderItem.getOrder());
     }
 

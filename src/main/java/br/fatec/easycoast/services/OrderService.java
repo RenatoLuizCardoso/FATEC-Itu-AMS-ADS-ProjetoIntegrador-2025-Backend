@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import br.fatec.easycoast.dtos.order.OrderRequest;
 import br.fatec.easycoast.dtos.order.OrderResponse;
 import br.fatec.easycoast.entities.Order;
-import br.fatec.easycoast.entities.OrderItem;
 import br.fatec.easycoast.mappers.OrderMapper;
 import br.fatec.easycoast.repositories.OrderRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -18,6 +17,9 @@ public class OrderService {
 
     @Autowired
     private OrderRepository orderRepository;
+
+    @Autowired
+    private OrderItemService orderItemService;
 
     public List<OrderResponse> getOrders() {
         List<OrderResponse> orderResponses = orderRepository.findAll()
@@ -38,7 +40,9 @@ public class OrderService {
         Order order = OrderMapper.toEntity(request);
 
         //Calculating the total, by the sum of the items' total
-        double total = order.getOrderItems().stream().mapToDouble(OrderItem::getTotal).sum();
+        double total = order.getOrderItems().stream()
+                            .mapToDouble(item -> orderItemService.getOrderItem(item.getId()).total())
+                            .sum();
         order.setTotal(total);
 
         return OrderMapper.toDTO(orderRepository.save(order));
@@ -58,7 +62,10 @@ public class OrderService {
             order.setOrderItems(request.orderItems());
 
             //Calculating the total, by the sum of the items' total
-            double total = order.getOrderItems().stream().mapToDouble(OrderItem::getTotal).sum();
+            double total = order.getOrderItems().stream()
+                           .mapToDouble(item -> orderItemService.getOrderItem(item.getId()).total())
+                           .sum();
+
             order.setTotal(total);
 
             orderRepository.save(order);
@@ -66,5 +73,11 @@ public class OrderService {
         } catch (EntityNotFoundException e) {
             throw new EntityNotFoundException("Order update failed.");
         }
+    }
+
+    public void updateTotal(Integer id, double total){
+        Order order = orderRepository.getReferenceById(id);
+        order.setTotal(order.getTotal() + total);
+        orderRepository.save(order);
     }
 }
