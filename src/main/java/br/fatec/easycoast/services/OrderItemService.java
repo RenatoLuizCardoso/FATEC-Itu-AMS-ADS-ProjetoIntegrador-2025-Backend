@@ -29,9 +29,6 @@ public class OrderItemService {
     @Autowired
     private ProductService productService;
 
-    @Autowired
-    private OrderService orderService;
-
     public List<OrderItemResponse> getOrderItems() {
         List<OrderItemResponse> orderItemsResponse = orderItemRepository
                 .findAll()
@@ -65,8 +62,6 @@ public class OrderItemService {
             
             total = (productService.getProductById(orderItem.getProduct().getId()).price() + total) * orderItem.getQuantity();
             orderItem.setTotal(total);
-
-            orderService.updateTotal(orderItem.getOrder().getId(), total);
 
             return OrderItemMapper.toDTO(orderItemRepository.save(orderItem), true);
 

@@ -39,10 +39,10 @@ public class OrderService {
     public OrderResponse saveOrder(OrderRequest request) {
         Order order = OrderMapper.toEntity(request);
 
-        //Calculating the total, by the sum of the items' total
+        // Calculating the total, by the sum of the items' total
         double total = order.getOrderItems().stream()
-                            .mapToDouble(item -> orderItemService.getOrderItem(item.getId()).total())
-                            .sum();
+                .mapToDouble(item -> orderItemService.getOrderItem(item.getId()).total())
+                .sum();
         order.setTotal(total);
 
         return OrderMapper.toDTO(orderRepository.save(order));
@@ -61,10 +61,10 @@ public class OrderService {
             order.setEmployee(request.employee());
             order.setOrderItems(request.orderItems());
 
-            //Calculating the total, by the sum of the items' total
+            // Calculating the total, by the sum of the items' total
             double total = order.getOrderItems().stream()
-                           .mapToDouble(item -> orderItemService.getOrderItem(item.getId()).total())
-                           .sum();
+                    .mapToDouble(item -> orderItemService.getOrderItem(item.getId()).total())
+                    .sum();
 
             order.setTotal(total);
 
@@ -75,9 +75,11 @@ public class OrderService {
         }
     }
 
-    public void updateTotal(Integer id, double total){
+    public void updateTotal(Integer id) {
         Order order = orderRepository.getReferenceById(id);
-        order.setTotal(order.getTotal() + total);
+        order.setTotal(order.getOrderItems().stream()
+                            .mapToDouble(item -> orderItemService.getOrderItem(item.getId()).total())
+                            .sum());
         orderRepository.save(order);
     }
 }
