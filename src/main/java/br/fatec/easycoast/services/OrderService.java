@@ -43,7 +43,7 @@ public class OrderService {
         double total = order.getOrderItems().stream()
                 .mapToDouble(item -> orderItemService.getOrderItem(item.getId()).total())
                 .sum();
-        order.setTotal(total);
+        order.setTotal(Math.floor(total * 100) / 100);
 
         return OrderMapper.toDTO(orderRepository.save(order));
     }
@@ -66,7 +66,7 @@ public class OrderService {
                     .mapToDouble(item -> orderItemService.getOrderItem(item.getId()).total())
                     .sum();
 
-            order.setTotal(total);
+            order.setTotal(Math.floor(total * 100) / 100);
 
             orderRepository.save(order);
             return OrderMapper.toDTO(order);

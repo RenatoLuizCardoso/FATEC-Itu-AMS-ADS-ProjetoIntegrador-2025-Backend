@@ -41,17 +41,21 @@ public class AddonMapper {
                     }
 
                 else {
-                        return toDTO(
-                                new Addon(addon.getId(), addon.getName(), addon.getPrice(), addon.getAvailability(),
-                                        addon.getItem(),
-                                        new AddonCategory(addon.getAddonCategory().getId(),
-                                                addon.getAddonCategory().getName(),
-                                                addon.getAddonCategory().getType())));
-
+                        if (addon.getAddonCategory() != null) {
+                            return toDTO(
+                                    new Addon(addon.getId(), addon.getName(), addon.getPrice(), addon.getAvailability(),
+                                            addon.getItem(),
+                                            new AddonCategory(addon.getAddonCategory().getId(),
+                                                    addon.getAddonCategory().getName(),
+                                                    addon.getAddonCategory().getType())));
+                        } else {
+                            return toDTO(
+                                    new Addon(addon.getId(), addon.getName(), addon.getPrice(), addon.getAvailability(),
+                                            addon.getItem(),
+                                            new AddonCategory()));
+                        }
                     }
-
                 })
-
                 .toList();
         return addonResponses;
     }

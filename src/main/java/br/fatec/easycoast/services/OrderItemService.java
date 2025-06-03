@@ -61,7 +61,7 @@ public class OrderItemService {
                     .mapToDouble(addon -> addonService.getAddonById(addon.getId()).price()).sum();
             
             total = (productService.getProductById(orderItem.getProduct().getId()).price() + total) * orderItem.getQuantity();
-            orderItem.setTotal(total);
+            orderItem.setTotal(Math.floor(total * 100) / 100);
 
             return OrderItemMapper.toDTO(orderItemRepository.save(orderItem), true);
 
@@ -87,7 +87,7 @@ public class OrderItemService {
 
                 double total = orderItem.getAddons().stream().mapToDouble(Addon::getPrice).sum();
                 total += orderItem.getProduct().getPrice() * orderItem.getQuantity();
-                orderItem.setTotal(total);
+                orderItem.setTotal(Math.floor(total * 100) / 100);
 
                 orderItemRepository.save(orderItem);
 
