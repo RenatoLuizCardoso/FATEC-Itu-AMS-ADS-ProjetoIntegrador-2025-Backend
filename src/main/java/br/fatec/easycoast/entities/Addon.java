@@ -26,9 +26,13 @@ public class Addon {
     @Column(nullable = false)
     private Boolean availability;
 
+    // @ManyToOne
+    // @JoinColumn(name = "ITEM_ID")
+    // private Item item;
+
     @ManyToOne
-    @JoinColumn(name = "ITEM_ID")
-    private Item item;
+    @JoinColumn(name = "SQUARE_ID")
+    private Square square;
 
     @ManyToOne
     @JoinColumn(name = "ADDONCATEGORY_ID")
@@ -38,12 +42,14 @@ public class Addon {
     public Addon() {
     }
 
-    public Addon(Integer id, String name, Float price, Boolean availability, Item item, AddonCategory addonCategory) {
+    public Addon(Integer id, String name, Float price, Boolean availability, Square square,
+            AddonCategory addonCategory) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.availability = availability;
-        this.item = item;
+        // this.item = item;
+        this.square = square;
         this.addonCategory = addonCategory;
     }
 
@@ -79,12 +85,20 @@ public class Addon {
         this.availability = availability;
     }
 
-    public Item getItem() {
-        return item;
+    // public Item getItem() {
+    // return item;
+    // }
+
+    // public void setItem(Item item) {
+    // this.item = item;
+    // }
+
+    public Square getSquare() {
+        return square;
     }
 
-    public void setItem(Item item) {
-        this.item = item;
+    public void setSquare(Square square) {
+        this.square = square;
     }
 
     public AddonCategory getAddonCategory() {

@@ -45,7 +45,8 @@ public class AddonService {
         addon.setPrice(request.price());
         addon.setAvailability(request.availability());
         addon.setAddonCategory(request.addonCategory());
-        addon.setItem(request.item());
+        // addon.setItem(request.item());
+        addon.setSquare(request.square());
 
         addonRepository.save(addon);
 
