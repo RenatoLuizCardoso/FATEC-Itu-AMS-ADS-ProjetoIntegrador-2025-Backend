@@ -39,12 +39,6 @@ public class OrderService {
     public OrderResponse saveOrder(OrderRequest request) {
         Order order = OrderMapper.toEntity(request);
 
-        // Calculating the total, by the sum of the items' total
-        double total = order.getOrderItems().stream()
-                .mapToDouble(item -> orderItemService.getOrderItem(item.getId()).total())
-                .sum();
-        order.setTotal(Math.floor(total * 100) / 100);
-
         return OrderMapper.toDTO(orderRepository.save(order));
     }
 
@@ -60,13 +54,6 @@ public class OrderService {
             order.setSeat(request.seat());
             order.setEmployee(request.employee());
             order.setOrderItems(request.orderItems());
-
-            // Calculating the total, by the sum of the items' total
-            double total = order.getOrderItems().stream()
-                    .mapToDouble(item -> orderItemService.getOrderItem(item.getId()).total())
-                    .sum();
-
-            order.setTotal(Math.floor(total * 100) / 100);
 
             orderRepository.save(order);
             return OrderMapper.toDTO(order);
