@@ -26,10 +26,6 @@ public class Addon {
     @Column(nullable = false)
     private Boolean availability;
 
-    // @ManyToOne
-    // @JoinColumn(name = "ITEM_ID")
-    // private Item item;
-
     @ManyToOne
     @JoinColumn(name = "SQUARE_ID")
     private Square square;
@@ -48,7 +44,6 @@ public class Addon {
         this.name = name;
         this.price = price;
         this.availability = availability;
-        // this.item = item;
         this.square = square;
         this.addonCategory = addonCategory;
     }
@@ -84,14 +79,6 @@ public class Addon {
     public void setAvailability(Boolean availability) {
         this.availability = availability;
     }
-
-    // public Item getItem() {
-    // return item;
-    // }
-
-    // public void setItem(Item item) {
-    // this.item = item;
-    // }
 
     public Square getSquare() {
         return square;

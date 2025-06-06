@@ -27,7 +27,6 @@ public class AddonMapper {
                 addon.getName(),
                 addon.getPrice(),
                 addon.getAvailability(),
-                // addon.getItem() != null ? ItemMapper.toDTO(addon.getItem()) : null,
                 addon.getSquare() != null ? SquareMapper.toDto(addon.getSquare()) : null,
                 addon.getAddonCategory() != null ? AddonCategoryMapper.toDTO(addon.getAddonCategory()) : null
 
