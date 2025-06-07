@@ -1,5 +1,7 @@
 package br.fatec.easycoast.services;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import br.fatec.easycoast.dtos.orderItem.OrderItemRequest;
 import br.fatec.easycoast.dtos.orderItem.OrderItemResponse;
+import br.fatec.easycoast.dtos.product.ProductResponse;
 import br.fatec.easycoast.entities.Addon;
 import br.fatec.easycoast.entities.OrderItem;
 import br.fatec.easycoast.mappers.OrderItemMapper;
@@ -22,6 +25,12 @@ public class OrderItemService {
 
     @Autowired
     private AddonRepository addonRepository;
+
+    @Autowired
+    private AddonService addonService;
+
+    @Autowired
+    private ProductService productService;
 
     public List<OrderItemResponse> getOrderItems() {
         List<OrderItemResponse> orderItemsResponse = orderItemRepository
@@ -47,9 +56,21 @@ public class OrderItemService {
         if (addonNumber > 0) {
             throw new EntityNotFoundException("Addon incorrect");
         } else {
-            OrderItem orderItem = orderItemRepository.save(OrderItemMapper.toEntity(request));
+            OrderItem orderItem = OrderItemMapper.toEntity(request);
 
-            return OrderItemMapper.toDTO(orderItem, true);
+            // Calculating the total, by the sum of the price of the addons
+            double total = orderItem.getAddons()
+                                    .stream()
+                                    .mapToDouble(addon -> addonService.getAddonById(addon.getId()).price())
+                                    .sum();
+            // Then, get the info of the product
+            ProductResponse product = productService.getProductById(orderItem.getProduct().getId());
+            // And calculate the price, by subtracting the price by the discont, and sum with the addons and multiply by the quantity
+            total = ((product.price() - (product.price() / 100 * product.discount())) + total) * orderItem.getQuantity();
+            // Use BigDecimal to preserve the two decimal places, and set the total
+            orderItem.setTotal(new BigDecimal(total).setScale(2, RoundingMode.HALF_UP).doubleValue());
+
+            return OrderItemMapper.toDTO(orderItemRepository.save(orderItem), true);
 
         }
 
@@ -67,10 +88,22 @@ public class OrderItemService {
                 OrderItem orderItem = orderItemRepository.getReferenceById(id);
                 orderItem.setQuantity(request.quantity());
                 orderItem.setObservations(request.observations());
-                orderItem.setTotal(request.total());
                 orderItem.setProduct(request.product());
                 orderItem.setAddons(request.addons());
                 orderItem.setOrder(request.order());
+
+                // Calculating the total, by the sum of the price of the addons
+                double total = orderItem.getAddons()
+                                        .stream()
+                                        .mapToDouble(addon -> addonService.getAddonById(addon.getId()).price())
+                                        .sum();
+                // Then, get the info of the product
+                ProductResponse product = productService.getProductById(orderItem.getProduct().getId());
+                // And calculate the price, by subtracting the price by the discont, and sum with the addons and multiply by the quantity
+                total = ((product.price() - (product.price() / 100 * product.discount())) + total) * orderItem.getQuantity();
+                // Use BigDecimal to preserve the two decimal places, and set the total
+                orderItem.setTotal(new BigDecimal(total).setScale(2, RoundingMode.HALF_UP).doubleValue());
+
                 orderItemRepository.save(orderItem);
 
             } catch (EntityNotFoundException e) {

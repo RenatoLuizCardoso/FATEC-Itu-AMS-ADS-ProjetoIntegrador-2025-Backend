@@ -23,8 +23,8 @@ public class Product {
   private Integer id;
   private String name;
   private String description;
-  private Float price;
-  private Float discount;
+  private Double price;
+  private Double discount;
   private Boolean availability;
 
   @ManyToOne
@@ -46,7 +46,7 @@ public class Product {
   public Product() {
   }
 
-  public Product(Integer id, String name, Float price, Float discount, Boolean availability, Category category,
+  public Product(Integer id, String name, Double price, Double discount, Boolean availability, Category category,
       String imageurl) {
     this.id = id;
     this.name = name;
@@ -57,7 +57,7 @@ public class Product {
     this.imageurl = imageurl;
   }
 
-  public Product(Integer id, String name, Float price, Float discount, Boolean availability, Category category,
+  public Product(Integer id, String name, Double price, Double discount, Boolean availability, Category category,
       String imageurl, List<AddonCategory> addonCategories, List<Item> items) {
     this.id = id;
     this.name = name;
@@ -94,19 +94,19 @@ public class Product {
     this.description = description;
   }
 
-  public Float getPrice() {
+  public Double getPrice() {
     return price;
   }
 
-  public void setPrice(Float price) {
+  public void setPrice(Double price) {
     this.price = price;
   }
 
-  public Float getDiscount() {
+  public Double getDiscount() {
     return discount;
   }
 
-  public void setDiscount(Float discount) {
+  public void setDiscount(Double discount) {
     this.discount = discount;
   }
 

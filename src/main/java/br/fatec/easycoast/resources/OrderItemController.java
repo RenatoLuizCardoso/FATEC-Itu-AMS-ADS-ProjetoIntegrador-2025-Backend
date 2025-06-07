@@ -18,6 +18,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import br.fatec.easycoast.dtos.orderItem.OrderItemRequest;
 import br.fatec.easycoast.dtos.orderItem.OrderItemResponse;
 import br.fatec.easycoast.services.OrderItemService;
+import br.fatec.easycoast.services.OrderService;
 
 @CrossOrigin
 @RestController
@@ -26,6 +27,9 @@ public class OrderItemController {
 
     @Autowired
     private OrderItemService orderItemService;
+
+    @Autowired
+    private OrderService orderService;
 
     @GetMapping
     public ResponseEntity<List<OrderItemResponse>> getOrderItems() {
@@ -40,6 +44,7 @@ public class OrderItemController {
     @PostMapping
     public ResponseEntity<OrderItemResponse> saveOrderItem(@RequestBody OrderItemRequest request) {
         OrderItemResponse orderItemResponse = orderItemService.saveOrderItem(request);
+        if (request.order() != null) orderService.updateTotal(request.order().getId());
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("{id}")
@@ -52,6 +57,7 @@ public class OrderItemController {
     public ResponseEntity<OrderItemResponse> updateOrderItem(@PathVariable Integer id,
             @RequestBody OrderItemRequest request) {
         orderItemService.updateOrderItem(id, request);
+        if (request.order() != null) orderService.updateTotal(request.order().getId());
         return ResponseEntity.ok().build();
     }
 }

@@ -42,7 +42,7 @@ public class AddonMapper {
                     }
 
                 else {
-                        return toDTO(
+                      return toDTO(
                                 new Addon(addon.getId(), addon.getName(), addon.getPrice(), addon.getAvailability(),
                                         // addon.getItem(),
                                         addon.getSquare(),
@@ -51,9 +51,7 @@ public class AddonMapper {
                                                 addon.getAddonCategory().getType())));
 
                     }
-
                 })
-
                 .toList();
         return addonResponses;
     }

@@ -11,7 +11,6 @@ import br.fatec.easycoast.entities.Seat;
 public record OrderRequest(
         Instant openingTime,
         Instant closingTime,
-        Double total,
         Card card,
         Seat seat,
         Employee employee,

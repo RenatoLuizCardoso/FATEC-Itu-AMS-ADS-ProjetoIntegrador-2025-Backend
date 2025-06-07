@@ -11,7 +11,6 @@ public class OrderItemMapper {
         OrderItem orderItem = new OrderItem();
         orderItem.setQuantity(request.quantity());
         orderItem.setObservations(request.observations());
-        orderItem.setTotal(request.total());
         orderItem.setProduct(request.product());
         orderItem.setAddons(request.addons());
         orderItem.setOrder(request.order());
@@ -26,8 +25,8 @@ public class OrderItemMapper {
                 orderItem.getQuantity(),
                 orderItem.getObservations(),
                 orderItem.getTotal(),
-                ProductMapper.toDTO(orderItem.getProduct()),
-                AddonMapper.toListDTO(orderItem.getAddons(), isPost),
+                orderItem.getProduct() != null?  ProductMapper.toDTO(orderItem.getProduct()) : null,
+                orderItem.getAddons() != null?  AddonMapper.toListDTO(orderItem.getAddons(), isPost) : null,
                 orderItem.getOrder());
     }
 
