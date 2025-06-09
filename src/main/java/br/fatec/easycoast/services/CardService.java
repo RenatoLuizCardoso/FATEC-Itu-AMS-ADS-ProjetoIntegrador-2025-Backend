@@ -41,21 +41,24 @@ public class CardService {
 
     public List<CardResponse> printCards(int start, int end) {
         List<CardResponse> cards = new ArrayList<CardResponse>();
-        CardResponse aux = null;
 
-        int last = new LinkedList<CardResponse>(getCards()).getLast().id();
-        int i = last >= start ? start : last + 1;
-        for (; i <= end; i++) {
-            try {
-                cards.add(this.getCard(i));
-            } catch (EntityNotFoundException e) {
-                aux = this.saveCard(new CardRequest(true, 1));
-                if (aux.id() >= start) {
-                    cards.add(aux);
+        if (start < end) {
+            CardResponse aux = null;
+
+            int last = new LinkedList<CardResponse>(getCards()).getLast().id();
+            int i = last >= start ? start : last + 1;
+            for (; i <= end; i++) {
+                try {
+                    cards.add(this.getCard(i));
+                } catch (EntityNotFoundException e) {
+                    aux = this.saveCard(new CardRequest(true, 1));
+                    if (aux.id() >= start) {
+                        cards.add(aux);
+                    }
                 }
             }
         }
-
+        
         return cards;
     }
 

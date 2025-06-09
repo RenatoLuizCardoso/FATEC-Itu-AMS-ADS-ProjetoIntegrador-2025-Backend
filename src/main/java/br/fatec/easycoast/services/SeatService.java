@@ -38,19 +38,22 @@ public class SeatService {
         return SeatMapper.toDTO(seatRepository.save(SeatMapper.toEntity(seat)));
     }
 
-    public List<SeatResponse> manageSeat(int start, int end){
+    public List<SeatResponse> manageSeat(int start, int end) {
         List<SeatResponse> seats = new ArrayList<SeatResponse>();
-        SeatResponse aux = null;
 
-        int last = new LinkedList<SeatResponse>(getSeats()).getLast().id();
-        int i = last >= start ? start : last + 1;
-        for (; i <= end; i++) {
-            try {
-                seats.add(this.getSeat(i));
-            } catch (EntityNotFoundException e) {
-                aux = this.saveSeat(new SeatRequest(SeatStatus.FREE));
-                if (aux.id() >= start) {
-                    seats.add(aux);
+        if (start < end) {
+            SeatResponse aux = null;
+
+            int last = new LinkedList<SeatResponse>(getSeats()).getLast().id();
+            int i = last >= start ? start : last + 1;
+            for (; i <= end; i++) {
+                try {
+                    seats.add(this.getSeat(i));
+                } catch (EntityNotFoundException e) {
+                    aux = this.saveSeat(new SeatRequest(SeatStatus.FREE));
+                    if (aux.id() >= start) {
+                        seats.add(aux);
+                    }
                 }
             }
         }
