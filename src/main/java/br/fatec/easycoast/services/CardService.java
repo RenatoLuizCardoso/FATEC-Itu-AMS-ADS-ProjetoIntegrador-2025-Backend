@@ -43,8 +43,8 @@ public class CardService {
         List<CardResponse> cards = new ArrayList<CardResponse>();
         CardResponse aux = null;
 
-        int s = new LinkedList<CardResponse>(getCards()).getLast().id();
-        int i = s >= start ? start : s + 1;
+        int last = new LinkedList<CardResponse>(getCards()).getLast().id();
+        int i = last >= start ? start : last + 1;
         for (; i <= end; i++) {
             try {
                 cards.add(this.getCard(i));
