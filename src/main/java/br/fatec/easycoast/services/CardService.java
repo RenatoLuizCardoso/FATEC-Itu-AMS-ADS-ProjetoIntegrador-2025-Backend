@@ -1,6 +1,7 @@
 package br.fatec.easycoast.services;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,12 +41,18 @@ public class CardService {
 
     public List<CardResponse> printCards(int start, int end) {
         List<CardResponse> cards = new ArrayList<CardResponse>();
+        CardResponse aux = null;
 
-        for (int i = start; i <= end; i++) {
+        int s = new LinkedList<CardResponse>(getCards()).getLast().id();
+        int i = s >= start ? start : s + 1;
+        for (; i <= end; i++) {
             try {
                 cards.add(this.getCard(i));
             } catch (EntityNotFoundException e) {
-                cards.add(this.saveCard(new CardRequest(true, 1)));
+                aux = this.saveCard(new CardRequest(true, 1));
+                if (aux.id() >= start) {
+                    cards.add(aux);
+                }
             }
         }
 
