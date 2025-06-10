@@ -21,6 +21,9 @@ public class SeatService {
     @Autowired
     private SeatRepository seatRepository;
 
+    @Autowired
+    private RestaurantService restaurantService;
+
     public List<SeatResponse> getSeats() {
         List<SeatResponse> seats = seatRepository.findAll()
                 .stream()
@@ -56,6 +59,8 @@ public class SeatService {
                     }
                 }
             }
+
+            restaurantService.updateSeats(end);
         }
 
         return seats;
