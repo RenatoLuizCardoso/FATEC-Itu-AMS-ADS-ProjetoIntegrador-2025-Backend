@@ -44,18 +44,20 @@ public class SeatService {
     public List<SeatResponse> manageSeat(int start, int end) {
         List<SeatResponse> seats = new ArrayList<SeatResponse>();
 
-        if (start < end) {
+        if (start <= end && end > 0) {
             SeatResponse aux = null;
 
             int last = new LinkedList<SeatResponse>(getSeats()).getLast().id();
             int i = last >= start ? start : last + 1;
             for (; i <= end; i++) {
-                try {
-                    seats.add(this.getSeat(i));
-                } catch (EntityNotFoundException e) {
-                    aux = this.saveSeat(new SeatRequest(SeatStatus.FREE));
-                    if (aux.id() >= start) {
-                        seats.add(aux);
+                if (i > 0) {
+                    try {
+                        seats.add(this.getSeat(i));
+                    } catch (EntityNotFoundException e) {
+                        aux = this.saveSeat(new SeatRequest(SeatStatus.FREE));
+                        if (aux.id() >= start) {
+                            seats.add(aux);
+                        }
                     }
                 }
             }
