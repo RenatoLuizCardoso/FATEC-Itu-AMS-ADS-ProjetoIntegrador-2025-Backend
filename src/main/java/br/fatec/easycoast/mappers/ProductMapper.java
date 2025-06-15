@@ -14,7 +14,7 @@ public class ProductMapper {
     product.setPrice(request.price());
     product.setDiscount(request.discount());
     product.setAvailability(request.availability());
-    product.setCategory(request.category());
+    product.setSubcategory(request.subcategory());
     product.setImageurl(request.imageurl());
     product.setAddonsCategories(request.addonCategories());
     product.setItems(request.items());
@@ -32,7 +32,7 @@ public class ProductMapper {
         product.getPrice(),
         product.getDiscount(),
         product.getAvailability(),
-        product.getCategory(),
+        product.getSubcategory(),
         product.getImageurl(),
         product.getAddonsCategories(),
         product.getItems()

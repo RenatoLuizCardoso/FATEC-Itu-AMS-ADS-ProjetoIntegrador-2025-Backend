@@ -18,8 +18,7 @@ public class CategoryMapper {
     return new CategoryResponse(
         category.getId(),
         category.getName(),
-        category.getAvailability(),
-        category.getProducts());
+        category.getAvailability());
   }
 
 }
