@@ -39,7 +39,7 @@ public class ProductService {
     temp.setPrice(request.price());
     temp.setDiscount(request.discount());
     temp.setAvailability(request.availability());
-    temp.setCategory(request.category());
+    temp.setSubcategory(request.subcategory());
     temp.setAddonsCategories(request.addonCategories());
     temp.setItems(request.items());
 
