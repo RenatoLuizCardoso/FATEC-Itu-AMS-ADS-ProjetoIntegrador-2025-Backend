@@ -26,14 +26,10 @@ public class Product {
   private Double discount;
   private Boolean availability;
 
-  // @ManyToOne
-  // @JoinColumn(name = "CATEGORY_ID")
-  // @JsonIgnoreProperties("products")
-  // @JsonProperty("category")
-  // private Category category;
   @ManyToOne
   @JoinColumn(name = "SUBCATEGORY_ID")
   @JsonIgnoreProperties("products")
+
   private Subcategory subcategory;
 
   private String imageurl;
@@ -125,13 +121,6 @@ public class Product {
     return imageurl;
   }
 
-  // public Category getCategory() {
-  // return category;
-  // }
-
-  // public void setCategory(Category category) {
-  // this.category = category;
-  // }
   public Subcategory getSubcategory() {
     return subcategory;
   }

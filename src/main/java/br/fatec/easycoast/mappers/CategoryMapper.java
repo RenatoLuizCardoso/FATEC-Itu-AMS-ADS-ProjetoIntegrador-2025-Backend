@@ -10,15 +10,16 @@ public class CategoryMapper {
     Category category = new Category();
     category.setName(request.name());
     category.setAvailability(request.availability());
+
     return category;
   }
 
-  // Obs: Um Category pode ter vários produtos inseridos.
   public static CategoryResponse toDto(Category category) {
     return new CategoryResponse(
         category.getId(),
         category.getName(),
-        category.getAvailability());
+        category.getAvailability(),
+        category.getSubcategory());
   }
 
 }

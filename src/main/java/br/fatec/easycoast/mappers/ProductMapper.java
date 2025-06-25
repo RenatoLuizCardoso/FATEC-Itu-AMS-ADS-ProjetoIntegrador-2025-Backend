@@ -32,7 +32,7 @@ public class ProductMapper {
         product.getPrice(),
         product.getDiscount(),
         product.getAvailability(),
-        product.getSubcategory(),
+        product.getSubcategory() != null ? SubcategoryMapper.toDTO(product.getSubcategory()) : null,
         product.getImageurl(),
         product.getAddonsCategories(),
         product.getItems()

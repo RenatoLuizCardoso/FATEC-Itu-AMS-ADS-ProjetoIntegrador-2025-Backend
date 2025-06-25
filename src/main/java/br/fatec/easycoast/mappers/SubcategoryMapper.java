@@ -21,7 +21,8 @@ public class SubcategoryMapper {
                 subcategory.getId(),
                 subcategory.getName(),
                 subcategory.getAvailability(),
-                subcategory.getCategory()
+                subcategory.getCategory(),
+                subcategory.getProducts()
 
         );
     }
