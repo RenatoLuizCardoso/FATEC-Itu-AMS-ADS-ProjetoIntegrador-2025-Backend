@@ -3,7 +3,6 @@ package br.fatec.easycoast.entities;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,10 +27,10 @@ public class Product {
   private Boolean availability;
 
   @ManyToOne
-  @JoinColumn(name = "CATEGORY_ID")
+  @JoinColumn(name = "SUBCATEGORY_ID")
   @JsonIgnoreProperties("products")
-  @JsonProperty("category")
-  private Category category;
+
+  private Subcategory subcategory;
 
   private String imageurl;
 
@@ -46,25 +45,25 @@ public class Product {
   public Product() {
   }
 
-  public Product(Integer id, String name, Double price, Double discount, Boolean availability, Category category,
+  public Product(Integer id, String name, Double price, Double discount, Boolean availability, Subcategory subcategory,
       String imageurl) {
     this.id = id;
     this.name = name;
     this.price = price;
     this.discount = discount;
     this.availability = availability;
-    this.category = category;
+    this.subcategory = subcategory;
     this.imageurl = imageurl;
   }
 
-  public Product(Integer id, String name, Double price, Double discount, Boolean availability, Category category,
+  public Product(Integer id, String name, Double price, Double discount, Boolean availability, Subcategory subcategory,
       String imageurl, List<AddonCategory> addonCategories, List<Item> items) {
     this.id = id;
     this.name = name;
     this.price = price;
     this.discount = discount;
     this.availability = availability;
-    this.category = category;
+    this.subcategory = subcategory;
     this.imageurl = imageurl;
     this.addonsCategories = addonCategories;
     this.items = items;
@@ -122,12 +121,12 @@ public class Product {
     return imageurl;
   }
 
-  public Category getCategory() {
-    return category;
+  public Subcategory getSubcategory() {
+    return subcategory;
   }
 
-  public void setCategory(Category category) {
-    this.category = category;
+  public void setSubcategory(Subcategory subcategory) {
+    this.subcategory = subcategory;
   }
 
   public void setImageurl(String imageurl) {
